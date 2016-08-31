@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.software.hms.projeto">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true">
+        <activity
+            android:name=".LoginActivity"
+            android:icon="@drawable/logocrzp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegistreActivity" android:icon="@drawable/logocrzp" android:label="@string/cadastrese"/>
+        <activity android:name=".MenuActivity"/>
+        <activity android:name=".MensagensActivity" android:icon="@drawable/logocrzp" android:label="Mensagens"/>
+        <activity android:name=".NoticiasActivity" android:icon="@drawable/logocrzp" android:label="Noticias"/>
+        <activity android:name=".ProjetoActivity" android:icon="@drawable/logocrzp" android:label="Projetos"/>
+        <activity
+            android:name=".CartaoAmigoActivity"
+            android:screenOrientation="landscape" android:icon="@drawable/logocrzp"
+            android:label="Cartão Amigo"/>
+        <activity android:name=".AmigoActivity" android:icon="@drawable/logocrzp" android:label="Seja um Amigo"/>
+        <activity android:name=".RedeDescontosActivity" android:icon="@drawable/logocrzp" android:label="Rede de Descontos"/>
+        <activity android:name=".DetalheMsgActivity" android:icon="@drawable/logocrzp" />
+        <activity android:name=".RedeDetalheActivity" android:icon="@drawable/logocrzp" android:label="Rede de Descontos"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.software.hms.projeto"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+    </application>
+
+</manifest>

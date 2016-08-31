@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">CRUZ VERMELHA</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">Usuario e Senha Incorretos</string>
+    <string name="error_field_required">Campo Obrigatório</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="aguarde">Aguarde.....</string>
+    <string name="registrado">Registrado Com Sucesso</string>
+    <string name="erro">Tente Novamente</string>
+    <string name="ok">OK</string>
+    <string name="esqueceu_senha">Esqueceu sua senha</string>
+    <string name="cadastrese">Cadastre-se</string>
+    <string name="nome">Nome</string>
+    <string name="cpf">CPF</string>
+    <string name="dataNascimento">Data Nascimento</string>
+    <string name="estado">Estado</string>
+    <string name="cidade">Cidade</string>
+    <string name="endereco">Endereço</string>
+    <string name="confirma">Confirma</string>
+    <string name="confirmaSenha">Confirme a Senha</string>
+    <string name="email">Email</string>
+    <string name="senhaDif">Senha diferente</string>
+    <string name="ola">Olá é sua primeira vez ? - Informe seus dados</string>
+
+
+</resources>
