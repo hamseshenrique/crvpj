@@ -3,7 +3,9 @@ package com.software.hms.projeto;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -24,6 +26,7 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -31,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.software.hms.projeto.componentes.HmsStatics;
@@ -125,6 +129,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        final LayoutInflater inflater = this.getLayoutInflater();
+
+        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.idTxtEsqueceu);
+        linearLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                alert.setView(inflater.inflate(R.layout.dialog_esqueceu_senha_layout,null))
+                        .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                alert.create().show();
+            }
+        });
     }
 
     private void populateAutoComplete() {
@@ -382,6 +404,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             return retorno;
+
         }
 
         @Override

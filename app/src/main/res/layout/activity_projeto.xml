@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.software.hms.projeto.ProjetoActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/headerTela"
         android:elevation="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <android.support.design.widget.VisibilityAwareImageButton
@@ -23,12 +22,25 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/icon_project"/>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/descMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:paddingLeft="15dp"
+            android:textColor="@color/cardview_dark_background"
+            android:text="Projetos"/>
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical" />
+
+    <include layout="@layout/rodape_layout"/>
 
 </LinearLayout>

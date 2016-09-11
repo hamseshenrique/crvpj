@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.software.hms.projeto.InfoActivity"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <android.support.design.widget.VisibilityAwareImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:src="@drawable/logocrz"/>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.Android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/cardview_compat_inset_shadow"
+        card_view:cardCornerRadius="3dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:textSize="13sp"
+                    android:linksClickable="true"
+                    android:autoLink="web"/>
+            </LinearLayout>
+
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_weight="0">
+        <include layout="@layout/rodape_layout"/>
+    </LinearLayout>
+
+
+</LinearLayout>

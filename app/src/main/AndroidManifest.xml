@@ -12,36 +12,57 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
-            android:icon="@drawable/logocrzp">
+            android:name=".ScreanActivity"
+            android:icon="@drawable/cruzvemelha">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistreActivity" android:icon="@drawable/logocrzp" android:label="@string/cadastrese"/>
-        <activity android:name=".MenuActivity"/>
-        <activity android:name=".MensagensActivity" android:icon="@drawable/logocrzp" android:label="Mensagens"/>
-        <activity android:name=".NoticiasActivity" android:icon="@drawable/logocrzp" android:label="Noticias"/>
-        <activity android:name=".ProjetoActivity" android:icon="@drawable/logocrzp" android:label="Projetos"/>
+
+        <activity
+            android:name=".RegistreActivity"
+            android:icon="@drawable/logocrzp"
+            android:label="@string/cadastrese" />
+        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".MensagensActivity"
+            android:icon="@drawable/logocrzp" />
+        <activity
+            android:name=".NoticiasActivity"
+            android:icon="@drawable/logocrzp" />
+        <activity
+            android:name=".ProjetoActivity"
+            android:icon="@drawable/logocrzp" />
         <activity
             android:name=".CartaoAmigoActivity"
-            android:screenOrientation="landscape" android:icon="@drawable/logocrzp"
-            android:label="Cartão Amigo"/>
-        <activity android:name=".AmigoActivity" android:icon="@drawable/logocrzp" android:label="Seja um Amigo"/>
-        <activity android:name=".RedeDescontosActivity" android:icon="@drawable/logocrzp" android:label="Rede de Descontos"/>
-        <activity android:name=".DetalheMsgActivity" android:icon="@drawable/logocrzp" />
-        <activity android:name=".RedeDetalheActivity" android:icon="@drawable/logocrzp" android:label="Rede de Descontos"></activity>
+            android:icon="@drawable/logocrzp"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AmigoActivity"
+            android:icon="@drawable/logocrzp" />
+        <activity
+            android:name=".RedeDescontosActivity"
+            android:icon="@drawable/logocrzp" />
+        <activity
+            android:name=".DetalheMsgActivity"
+            android:icon="@drawable/logocrzp" />
+        <activity
+            android:name=".RedeDetalheActivity"
+            android:icon="@drawable/logocrzp" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -50,9 +71,11 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

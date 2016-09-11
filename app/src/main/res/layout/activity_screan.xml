@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.software.hms.projeto.ScreanActivity"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical">
+
+    <android.support.design.widget.VisibilityAwareImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:src="@drawable/logocrz"
+            android:layout_gravity="center_vertical"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.VisibilityAwareImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/help"
+            android:layout_gravity="top|right"
+            android:layout_marginBottom="-3dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <android.support.design.widget.VisibilityAwareImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/screan1"
+                    android:scaleType="fitXY"/>
+                <android.support.design.widget.VisibilityAwareImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/screan2"
+                    android:layout_gravity="left"
+                    android:scaleType="fitXY"/>
+                <android.support.design.widget.VisibilityAwareImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/screan3"
+                    android:layout_gravity="left"
+                    android:scaleType="fitXY"/>
+                <android.support.design.widget.VisibilityAwareImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/srean4"
+                    android:layout_gravity="left|top"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

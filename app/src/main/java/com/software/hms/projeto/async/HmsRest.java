@@ -14,6 +14,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.exceptions.OnErrorFailedException;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -40,8 +42,16 @@ public class HmsRest {
             Observable<RetornoDTO> obsRet = cruzVermelhaRest.obterMensagem(tipoMensagemEnum.getId());
             obsRet.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(retornoDTO ->{
+                    .onErrorResumeNext(throwable -> {
+                        return Observable.empty();
+                    })
+                    .subscribe(retornoDTO -> {
                         observerInterface.atualizar(retornoDTO);
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            throw new OnErrorFailedException(throwable);
+                        }
                     });
         }catch(Exception e){
             Log.i("CRUZVERMELHA",e.getMessage(),e);

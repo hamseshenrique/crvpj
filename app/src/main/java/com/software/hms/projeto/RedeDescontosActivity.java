@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import com.software.hms.projeto.adapter.RedeAdapter;
 import com.software.hms.projeto.dto.CategoriaDTO;
@@ -43,5 +44,14 @@ public class RedeDescontosActivity extends AppCompatActivity {
                 }
             });
         }
+
+        ImageView imageView = (ImageView) findViewById(R.id.info);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),InfoActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 }

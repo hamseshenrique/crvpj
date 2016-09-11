@@ -5,58 +5,58 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/linear"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
-        android:elevation="10dp"
-        android:layout_marginTop="-8dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/numMenu"
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:textSize="40sp"
-            android:textStyle="italic"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:textColor="@color/colorNumMenu"/>
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary"
+            android:elevation="10dp"
+            android:layout_marginTop="-8dp">
 
-        <TextView
-            android:id="@+id/descMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:textStyle="normal"
-            android:paddingTop="10dp"
-            android:paddingLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/colorDescMenu"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:gravity="right|center_vertical"
-            android:layout_marginRight="10dp">
-            <android.support.design.widget.VisibilityAwareImageButton
-                android:id="@+id/imgMenu"
+            <TextView
+                android:id="@+id/numMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                />
-        </LinearLayout>
+                android:gravity="center"
+                android:textSize="40sp"
+                android:textStyle="italic"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/colorNumMenu"/>
 
-    </android.support.v7.widget.LinearLayoutCompat>
+            <TextView
+                android:id="@+id/descMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorDescMenu"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.design.widget.VisibilityAwareImageButton
+            android:id="@+id/imgMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_donation"
+            android:layout_gravity="right"
+            android:cropToPadding="false"
+            android:scaleType="centerInside"
+            android:layout_marginLeft="90dp"/>
+    </FrameLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@drawable/myrect"/>
+
 </LinearLayout>

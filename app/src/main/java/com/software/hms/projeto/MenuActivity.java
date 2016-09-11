@@ -1,17 +1,16 @@
 package com.software.hms.projeto;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
-import com.software.hms.projeto.adapter.SolventRecyclerViewAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.software.hms.projeto.async.RedeDescontoAsync;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -20,34 +19,66 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_menu);
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        LinearLayoutCompat lnNoticias = (LinearLayoutCompat)findViewById(R.id.lnNoticias);
+        lnNoticias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),NoticiasActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutCompat lnMensagens = (LinearLayoutCompat)findViewById(R.id.lnMensagens);
+        lnMensagens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), MensagensActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+        LinearLayoutCompat lnProjetos = (LinearLayoutCompat)findViewById(R.id.lnProjetos);
+        lnProjetos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ProjetoActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+        LinearLayoutCompat lnDescontos = (LinearLayoutCompat)findViewById(R.id.lnDescontos);
+        lnDescontos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RedeDescontoAsync redeDescontoAsync = new RedeDescontoAsync(view.getContext());
+                redeDescontoAsync.execute();
+            }
+        });
+        LinearLayoutCompat lnAmigo = (LinearLayoutCompat)findViewById(R.id.lnAmigo);
+        lnAmigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),CartaoAmigoActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+        LinearLayoutCompat lnSejaAmigo = (LinearLayoutCompat)findViewById(R.id.lnSejaAmigo);
+        lnSejaAmigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),AmigoActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
 
-        List<ItemObjects> gaggeredList = getListItemData();
-
-        SolventRecyclerViewAdapter rcAdapter = new SolventRecyclerViewAdapter(gaggeredList);
-        recyclerView.setAdapter(rcAdapter);
-
-    }
-
-    private List<ItemObjects> getListItemData(){
-        List<ItemObjects> listViewItems = new ArrayList<ItemObjects>();
-
-        listViewItems.add(new ItemObjects("01","Noticias", R.drawable.icon_noticias));
-        listViewItems.add(new ItemObjects("02","Mensagens", R.drawable.icon_menssagens));
-        listViewItems.add(new ItemObjects("03","Projetos", R.drawable.icon_project));
-        listViewItems.add(new ItemObjects("04","Rede de Descontos",R.drawable.icon_rede_descontos));
-        listViewItems.add(new ItemObjects("05","Cartão Amigo", R.drawable.icon_card));
-        listViewItems.add(new ItemObjects("06","Seja um Amigo", R.drawable.icon_donation));
-
-
-        return listViewItems;
+        ImageView imageView = (ImageView) findViewById(R.id.info);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),InfoActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 }

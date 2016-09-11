@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.software.hms.projeto.MenuActivity;
 import com.software.hms.projeto.R;
@@ -19,6 +20,7 @@ import com.software.hms.projeto.security.TokenService;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -78,7 +80,7 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
 
                         return chain.proceed(request);
                     }
-                }).build();
+                }).readTimeout(80000, TimeUnit.MILLISECONDS).build();;
 
 
                 final Retrofit retrofit = new Retrofit.Builder().baseUrl(
@@ -104,6 +106,9 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
     @Override
     protected void onPostExecute(final RetornoDTO retornoDTO) {
 
+        Log.i("CRUZ VERMELHA",retornoDTO.getRetornoEnum().getDescricao());
+        Log.i("CRUZ VERMELHA",retornoDTO.getDescricao());
+
         if(retornoDTO.getRetornoEnum().equals(RetornoEnum.SUCESSO)){
             editor.putString(name,retornoDTO.getToken());
             editor.commit();
@@ -122,11 +127,11 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
             });
 
             alertDialogBuilder.create().show();
-        }else{
+        }else if(retornoDTO.getRetornoEnum().equals(RetornoEnum.USUARIO_NAO_CADASTRADO)){
             dialog.dismiss();
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-            alertDialogBuilder.setTitle(R.string.erro);
+            alertDialogBuilder.setTitle(retornoDTO.getDescricao());
             alertDialogBuilder.setPositiveButton(context.getString(R.string.ok),
                     new DialogInterface.OnClickListener(){
                         @Override

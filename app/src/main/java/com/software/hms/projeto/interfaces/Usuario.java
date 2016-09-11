@@ -21,4 +21,7 @@ public interface Usuario {
 
     @POST("/cruzvermelha/api/login")
     Call<RetornoDTO> login(@Body UsuarioDTO usuarioDTO);
+
+    @POST("/cruzvermelha/api/esqueceuSenha")
+    Call<RetornoDTO> esqueceuSenha(@Body UsuarioDTO usuarioDTO);
 }
