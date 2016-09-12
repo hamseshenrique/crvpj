@@ -107,7 +107,6 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
     protected void onPostExecute(final RetornoDTO retornoDTO) {
 
         Log.i("CRUZ VERMELHA",retornoDTO.getRetornoEnum().getDescricao());
-        Log.i("CRUZ VERMELHA",retornoDTO.getDescricao());
 
         if(retornoDTO.getRetornoEnum().equals(RetornoEnum.SUCESSO)){
             editor.putString(name,retornoDTO.getToken());

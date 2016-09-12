@@ -37,6 +37,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.software.hms.projeto.async.EsqueceuSenhaAsync;
 import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.dto.UsuarioDTO;
@@ -84,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private Context context;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
 
         sharedPreferences = getSharedPreferences("CRUZHMSVERMELHA",Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -137,11 +141,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
-                alert.setView(inflater.inflate(R.layout.dialog_esqueceu_senha_layout,null))
+                View infView = inflater.inflate(R.layout.dialog_esqueceu_senha_layout,null);
+                alert.setView(infView)
                         .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                EditText editText = (EditText) infView.findViewById(R.id.email);
+                                if(!TextUtils.isEmpty(editText.getText().toString())){
+                                    final UsuarioDTO usuarioDTO = new UsuarioDTO();
+                                    usuarioDTO.setLogin(editText.getText().toString());
+                                    final EsqueceuSenhaAsync esqueceuSenhaAsync = new EsqueceuSenhaAsync(context);
+                                    esqueceuSenhaAsync.execute(usuarioDTO);
+                                }
                             }
                         });
                 alert.create().show();
@@ -395,7 +406,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     if(response.isSuccessful()){
                         HmsStatics.setEmail(mEmail);
-                        retorno = RetornoEnum.SUCESSO.equals(response.body().getRetornoEnum());
+                        final RetornoDTO retornoDTO = response.body();
+                        retorno = RetornoEnum.SUCESSO.equals(retornoDTO.getRetornoEnum());
+                        if(retorno){
+                            token = retornoDTO.getToken();
+                        }
                     }
                 }
             }catch (Exception ex){
@@ -413,6 +428,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                editor.putString(mEmail,token);
+                editor.commit();
                 Intent intent = new Intent(context,MenuActivity.class);
                 startActivity(intent);
                 finish();

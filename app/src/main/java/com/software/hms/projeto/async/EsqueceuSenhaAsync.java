@@ -41,7 +41,7 @@ public class EsqueceuSenhaAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
             UsuarioDTO usuario = usuarioDTOs[0];
 
             final SharedPreferences sharedPreferences = context.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
-            final String token = sharedPreferences.getString(HmsStatics.getEmail(), null);
+            final String token = sharedPreferences.getString(usuario.getLogin(), null);
 
 
             final Retrofit retrofit = new Retrofit.Builder().baseUrl(

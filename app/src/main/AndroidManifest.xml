@@ -32,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegistreActivity"
             android:icon="@drawable/logocrzp"
@@ -75,7 +74,8 @@
         </provider>
 
         <activity android:name=".InfoActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".AlterarUsuarioActivity"></activity>
     </application>
 
 </manifest>
