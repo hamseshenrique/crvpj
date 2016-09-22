@@ -31,8 +31,7 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasHolder>{
 
     @Override
     public void onBindViewHolder(NoticiasHolder holder, int position) {
-        holder.txtHead.setText(list.get(position).getCabecalho());
-        holder.txtBody.setText(list.get(position).getDescricao());
+        holder.txtBody.setText(list.get(position).getCabecalho());
         holder.onClick(list.get(position));
     }
 

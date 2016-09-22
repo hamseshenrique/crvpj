@@ -35,7 +35,6 @@
                     android:id="@+id/txtDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/info"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="left"
                     android:gravity="left"

@@ -92,73 +92,84 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        context = this;
         sharedPreferences = getSharedPreferences("CRUZHMSVERMELHA",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        final String emailLogado = sharedPreferences.getString("LOGADO",null);
+        if(!TextUtils.isEmpty(emailLogado)){
+            HmsStatics.setEmail(emailLogado);
+            Intent intent = new Intent(context,MenuActivity.class);
+            startActivity(intent);
+        }else{
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+            // Set up the login form.
+            mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+            populateAutoComplete();
+
+            mPasswordView = (EditText) findViewById(R.id.password);
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        context = this;
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
 
-        TextView textView = (TextView) findViewById(R.id.cadastreSe);
-        textView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context,RegistreActivity.class);
-                startActivity(intent);
-            }
-        });
+            Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+            mEmailSignInButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        final LayoutInflater inflater = this.getLayoutInflater();
+            TextView textView = (TextView) findViewById(R.id.cadastreSe);
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,RegistreActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.idTxtEsqueceu);
-        linearLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            mLoginFormView = findViewById(R.id.login_form);
+            mProgressView = findViewById(R.id.login_progress);
+            final LayoutInflater inflater = this.getLayoutInflater();
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
-                View infView = inflater.inflate(R.layout.dialog_esqueceu_senha_layout,null);
-                alert.setView(infView)
-                        .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                EditText editText = (EditText) infView.findViewById(R.id.email);
-                                if(!TextUtils.isEmpty(editText.getText().toString())){
-                                    final UsuarioDTO usuarioDTO = new UsuarioDTO();
-                                    usuarioDTO.setLogin(editText.getText().toString());
-                                    final EsqueceuSenhaAsync esqueceuSenhaAsync = new EsqueceuSenhaAsync(context);
-                                    esqueceuSenhaAsync.execute(usuarioDTO);
+            final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.idTxtEsqueceu);
+            linearLayout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                    View infView = inflater.inflate(R.layout.dialog_esqueceu_senha_layout,null);
+                    alert.setView(infView)
+                            .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    EditText editText = (EditText) infView.findViewById(R.id.email);
+                                    if(!TextUtils.isEmpty(editText.getText().toString())){
+                                        final UsuarioDTO usuarioDTO = new UsuarioDTO();
+                                        usuarioDTO.setLogin(editText.getText().toString());
+                                        final EsqueceuSenhaAsync esqueceuSenhaAsync = new EsqueceuSenhaAsync(context);
+                                        esqueceuSenhaAsync.execute(usuarioDTO);
+                                    }
                                 }
-                            }
-                        });
-                alert.create().show();
-            }
-        });
+                            });
+                    alert.create().show();
+                }
+            });
+        }
     }
+
+    @Override
+    public void onBackPressed(){}
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -384,33 +395,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             Boolean retorno = Boolean.FALSE;
-            String token = sharedPreferences.getString(mEmail,null);
+            //String token = sharedPreferences.getString(mEmail,null);
 
             try{
-                if(!TextUtils.isEmpty(token)){
-                    final TokenService tokenService = new TokenService();
+                final TokenService tokenService = new TokenService();
 
-                    final UsuarioDTO usuarioDTO = new UsuarioDTO();
-                    usuarioDTO.setEmail(mEmail);
-                    usuarioDTO.setSenha(tokenService.criptSenha(mPassword));
+                final UsuarioDTO usuarioDTO = new UsuarioDTO();
+                usuarioDTO.setEmail(mEmail);
+                usuarioDTO.setSenha(tokenService.criptSenha(mPassword));
 
-                    final Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080")
-                            .client(OkHttpBasicAuth.createHead(token)).
-                            addConverterFactory(GsonConverterFactory.create()).build();
+                final Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080")
+                        .client(OkHttpBasicAuth.createHead(token)).
+                        addConverterFactory(GsonConverterFactory.create()).build();
 
-                    final Usuario usuario = retrofit.create(Usuario.class);
+                final Usuario usuario = retrofit.create(Usuario.class);
 
-                    Call<RetornoDTO> call = usuario.login(usuarioDTO);
-                    Response<RetornoDTO> response = call.execute();
+                Call<RetornoDTO> call = usuario.login(usuarioDTO);
+                Response<RetornoDTO> response = call.execute();
 
-                    if(response.isSuccessful()){
-                        HmsStatics.setEmail(mEmail);
-                        final RetornoDTO retornoDTO = response.body();
-                        retorno = RetornoEnum.SUCESSO.equals(retornoDTO.getRetornoEnum());
-                        if(retorno){
-                            token = retornoDTO.getToken();
-                        }
+                if(response.isSuccessful()){
+                    HmsStatics.setEmail(mEmail);
+                    final RetornoDTO retornoDTO = response.body();
+                    retorno = RetornoEnum.SUCESSO.equals(retornoDTO.getRetornoEnum());
+                    if(retorno){
+                        token = retornoDTO.getToken();
                     }
                 }
             }catch (Exception ex){
@@ -429,6 +438,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 editor.putString(mEmail,token);
+                editor.putString("LOGADO",mEmail);
                 editor.commit();
                 Intent intent = new Intent(context,MenuActivity.class);
                 startActivity(intent);

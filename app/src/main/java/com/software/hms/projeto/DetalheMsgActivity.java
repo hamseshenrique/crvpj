@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.software.hms.projeto.componentes.Rodape;
 import com.software.hms.projeto.dto.DetalheMensagemDTO;
 
 public class DetalheMsgActivity extends AppCompatActivity {
@@ -37,13 +38,7 @@ public class DetalheMsgActivity extends AppCompatActivity {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(bty, 0, bty.length));
         }
 
-        ImageView imageView = (ImageView) findViewById(R.id.info);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),InfoActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+        Rodape rodape = new Rodape();
+        rodape.onClickButtons(this);
     }
 }

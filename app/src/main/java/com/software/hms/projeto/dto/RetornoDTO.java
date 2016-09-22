@@ -18,6 +18,7 @@ public class RetornoDTO implements Serializable{
 	private List<CategoriaDTO> listCategoria;
 	private List<MensagemDTO> listaMensagem;
 	private DetalheMensagemDTO detalheMensagemDTO;
+	private UsuarioDTO usuarioDTO;
 
 	public RetornoDTO(final RetornoEnum retornoEnum){
 		this.retornoEnum = retornoEnum;
@@ -89,5 +90,13 @@ public class RetornoDTO implements Serializable{
 
 	public void setDetalheMensagemDTO(DetalheMensagemDTO detalheMensagemDTO) {
 		this.detalheMensagemDTO = detalheMensagemDTO;
+	}
+
+	public UsuarioDTO getUsuarioDTO() {
+		return usuarioDTO;
+	}
+
+	public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
+		this.usuarioDTO = usuarioDTO;
 	}
 }

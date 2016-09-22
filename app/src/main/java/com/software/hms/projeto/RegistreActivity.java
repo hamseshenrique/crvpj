@@ -102,7 +102,7 @@ public class RegistreActivity extends AppCompatActivity {
         cidade = (AutoCompleteTextView) findViewById(R.id.cidade);
         complemento = (AutoCompleteTextView) findViewById(R.id.completeEndereco);
         password = (EditText) findViewById(R.id.password);
-        confirmaPassword = (EditText) findViewById(R.id.password);
+        confirmaPassword = (EditText) findViewById(R.id.confirmaPassword);
         email = (AutoCompleteTextView) findViewById(R.id.email);
 
         Button button = (Button)findViewById(R.id.registre);
@@ -139,7 +139,7 @@ public class RegistreActivity extends AppCompatActivity {
             }
         });
 
-        Button btnFoto = (Button) findViewById(R.id.foto);
+       /* Button btnFoto = (Button) findViewById(R.id.foto);
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +150,7 @@ public class RegistreActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -170,6 +170,7 @@ public class RegistreActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private Boolean validarCampos(){
         Boolean isValido = Boolean.TRUE;

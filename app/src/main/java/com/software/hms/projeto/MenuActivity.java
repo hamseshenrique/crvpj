@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.software.hms.projeto.async.RedeDescontoAsync;
+import com.software.hms.projeto.componentes.Rodape;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class MenuActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_menu);
 
-        LinearLayoutCompat lnNoticias = (LinearLayoutCompat)findViewById(R.id.lnNoticias);
+        ImageView lnNoticias = (ImageView) findViewById(R.id.lnNoticias);
         lnNoticias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,7 +32,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayoutCompat lnMensagens = (LinearLayoutCompat)findViewById(R.id.lnMensagens);
+        ImageView lnMensagens = (ImageView) findViewById(R.id.lnMensagens);
         lnMensagens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,7 +40,7 @@ public class MenuActivity extends AppCompatActivity {
                 view.getContext().startActivity(intent);
             }
         });
-        LinearLayoutCompat lnProjetos = (LinearLayoutCompat)findViewById(R.id.lnProjetos);
+        ImageView lnProjetos = (ImageView) findViewById(R.id.lnProjetos);
         lnProjetos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +48,7 @@ public class MenuActivity extends AppCompatActivity {
                 view.getContext().startActivity(intent);
             }
         });
-        LinearLayoutCompat lnDescontos = (LinearLayoutCompat)findViewById(R.id.lnDescontos);
+        ImageView lnDescontos = (ImageView) findViewById(R.id.lnDescontos);
         lnDescontos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
                 redeDescontoAsync.execute();
             }
         });
-        LinearLayoutCompat lnAmigo = (LinearLayoutCompat)findViewById(R.id.lnAmigo);
+        ImageView lnAmigo = (ImageView) findViewById(R.id.lnAmigo);
         lnAmigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +64,7 @@ public class MenuActivity extends AppCompatActivity {
                 view.getContext().startActivity(intent);
             }
         });
-        LinearLayoutCompat lnSejaAmigo = (LinearLayoutCompat)findViewById(R.id.lnSejaAmigo);
+        ImageView lnSejaAmigo = (ImageView) findViewById(R.id.lnSejaAmigo);
         lnSejaAmigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,13 +73,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        ImageView imageView = (ImageView) findViewById(R.id.info);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),InfoActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+        Rodape rodape = new Rodape();
+        rodape.onClickButtons(this);
     }
 }

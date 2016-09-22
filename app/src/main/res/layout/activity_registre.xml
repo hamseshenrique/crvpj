@@ -207,14 +207,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/foto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_camera"
-                android:elevation="10dp"
-                android:layout_gravity="center_horizontal"/>
-
-            <Button
                 android:id="@+id/registre"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
@@ -226,10 +218,4 @@
         </LinearLayout>
 
     </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0">
-        <include layout="@layout/rodape_layout"/>
-    </LinearLayout>
 </LinearLayout>

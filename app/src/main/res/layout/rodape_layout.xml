@@ -12,27 +12,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="right"
-        android:gravity="right">
+        android:orientation="horizontal">
         <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/close"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/instagram"/>
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:src="@drawable/person"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/twitter"/>
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/facebook"/>
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_info_details"
-            android:layout_gravity="center_vertical"/>
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:gravity="right">
+
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

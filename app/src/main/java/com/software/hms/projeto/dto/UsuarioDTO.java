@@ -1,54 +1,60 @@
 package com.software.hms.projeto.dto;
 
-// TODO: Auto-generated Javadoc
-
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UsuarioDTO.
  */
-public class UsuarioDTO implements Serializable {
-	
-	 /** The Constant serialVersionUID. */
-	 private static final long serialVersionUID = 1L;
-	
-	 /** The login. */
- 	private String login;
-	 
- 	/** The nome. */
- 	private String nome;
+public class UsuarioDTO implements Serializable{
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The login. */
+	private String login;
+
+	/** The nome. */
+	private String nome;
+
+	/** The senha. */
+	private String senha;
+
+	/** The email. */
 	private String email;
-	 
- 	/** The senha. */
- 	private String senha;
-	 
- 	/** The token. */
- 	private String token;
-	 
- 	/** The permissao. */
- 	private String permissao;
-	 
- 	/** The cpf. */
- 	private String cpf;
-	 
- 	private String dateNascimento;
-	 
- 	/** The uf. */
- 	private String uf;
-	 
- 	/** The cidade. */
- 	private String cidade;
-	 
- 	/** The complemento. */
- 	private String complemento;
 
+	/** The token. */
+	private String token;
+
+	/** The permissao. */
+	private String permissao;
+
+	/** The cpf. */
+	private String cpf;
+
+	/** The date nascimento. */
+	private String dateNascimento;
+
+	/** The uf. */
+	private String uf;
+
+	/** The cidade. */
+	private String cidade;
+
+	/** The complemento. */
+	private String complemento;
+
+	/** The sexo. */
 	private String sexo;
-	 
-	 /**
- 	 * Instantiates a new usuario DTO.
- 	 */
- 	public UsuarioDTO(){}
+
+	/** The foto. */
+	private String foto;
+
+
+	/**
+	 * Instantiates a new usuario DTO.
+	 */
+	public UsuarioDTO(){}
 
 	/**
 	 * Gets the login.
@@ -159,6 +165,8 @@ public class UsuarioDTO implements Serializable {
 	}
 
 	/**
+	 * Gets the date nascimento.
+	 *
 	 * @return the dateNascimento
 	 */
 	public String getDateNascimento() {
@@ -166,6 +174,8 @@ public class UsuarioDTO implements Serializable {
 	}
 
 	/**
+	 * Sets the date nascimento.
+	 *
 	 * @param dateNascimento the dateNascimento to set
 	 */
 	public void setDateNascimento(String dateNascimento) {
@@ -226,20 +236,45 @@ public class UsuarioDTO implements Serializable {
 		this.complemento = complemento;
 	}
 
-
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @param email the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * @return the sexo
+	 */
 	public String getSexo() {
 		return sexo;
 	}
 
+	/**
+	 * @param sexo the sexo to set
+	 */
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	/**
+	 * @return the foto
+	 */
+	public String getFoto() {
+		return foto;
+	}
+
+	/**
+	 * @param foto the foto to set
+	 */
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 }

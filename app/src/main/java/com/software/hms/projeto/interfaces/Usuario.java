@@ -5,7 +5,9 @@ import com.software.hms.projeto.dto.UsuarioDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 
 /**
@@ -24,4 +26,7 @@ public interface Usuario {
 
     @POST("/cruzvermelha/api/esqueceuSenha")
     Call<RetornoDTO> esqueceuSenha(@Body UsuarioDTO usuarioDTO);
+
+    @POST("/cruzvermelha/api/obterUsuario")
+    Call<RetornoDTO> obterUsuario(@Body UsuarioDTO usuarioDTO);
 }

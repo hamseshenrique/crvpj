@@ -60,7 +60,7 @@ public class OkHttpBasicAuth {
 
                 return chain.proceed(request);
             }
-        }).readTimeout(80000, TimeUnit.MILLISECONDS).build();
+        }).readTimeout(100000, TimeUnit.MILLISECONDS).build();
 
         return okHttpClient;
     }

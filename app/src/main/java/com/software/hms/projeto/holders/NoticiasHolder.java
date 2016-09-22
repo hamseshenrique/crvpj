@@ -15,13 +15,11 @@ import org.w3c.dom.Text;
  */
 public class NoticiasHolder extends RecyclerView.ViewHolder{
 
-    public TextView txtHead;
     public TextView txtBody;
 
     public NoticiasHolder(View item){
         super(item);
 
-        txtHead = (TextView) item.findViewById(R.id.txtData);
         txtBody = (TextView) item.findViewById(R.id.txtDesc);
     }
 

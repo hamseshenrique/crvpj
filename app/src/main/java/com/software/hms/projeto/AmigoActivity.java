@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.software.hms.projeto.componentes.Rodape;
+
 public class AmigoActivity extends AppCompatActivity {
 
     @Override
@@ -13,13 +15,7 @@ public class AmigoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_amigo);
 
-        ImageView imageView = (ImageView) findViewById(R.id.info);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),InfoActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+        Rodape rodape = new Rodape();
+        rodape.onClickButtons(this);
     }
 }

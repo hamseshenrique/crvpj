@@ -23,278 +23,63 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_weight="1">
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <FrameLayout
+            android:layout_marginLeft="-6dp">
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/lnSejaAmigo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                >
-                <LinearLayout
-                    android:id="@+id/card_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="12dp">
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/lnNoticias"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorPrimary"
-                        android:elevation="10dp">
-
-                        <TextView
-                            android:id="@+id/descMenu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textStyle="normal"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="85dp"
-                            android:textColor="@color/colorDescMenu"
-                            android:text="Noticias"/>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@drawable/myrect"/>
-                </LinearLayout>
-
-                <android.support.design.widget.VisibilityAwareImageButton
-                    android:id="@+id/imgMenu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_noticias"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginRight="5dp"
-                    android:rotation="-20"/>
-            </FrameLayout>
-            <FrameLayout
+                android:src="@drawable/seja_amigo"
+                android:layout_marginTop="278dp"
+                android:scaleType="fitXY"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="-9dp"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/lnAmigo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:id="@+id/lnMensagens"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorPrimary"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textStyle="normal"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="105dp"
-                            android:textColor="@color/colorDescMenu"
-                            android:text="Mensagens"/>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@drawable/myrect"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|top"
-                    android:gravity="top"
-                    android:layout_marginTop="-6dp">
-                    <android.support.design.widget.VisibilityAwareImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_menssagens"
-
-                        android:layout_marginLeft="200dp"
-                        android:scaleType="center"/>
-                </LinearLayout>
-
-            </FrameLayout>
-
-            <FrameLayout
+                android:src="@drawable/cartao_amigo"
+                android:layout_marginTop="214dp"
+                android:layout_marginLeft="-3dp"
+                android:scaleType="fitXY" />
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/lnDescontos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/lnProjetos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorPrimary">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textStyle="normal"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="165dp"
-                            android:textColor="@color/colorDescMenu"
-                            android:text="Projetos"/>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@drawable/myrect"/>
-                </LinearLayout>
-
-                <android.support.design.widget.VisibilityAwareImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_project"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="-7dp"
-                    android:layout_marginLeft="230dp"/>
-            </FrameLayout>
-            <FrameLayout
+                android:src="@drawable/rede_de_descontos"
+                android:layout_marginTop="163dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginLeft="-7dp"
+                android:scaleType="fitXY"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/lnProjetos"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/lnDescontos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorPrimary">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textStyle="normal"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="120dp"
-                            android:textColor="@color/colorDescMenu"
-                            android:text="Rede de Descontos"/>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@drawable/myrect"/>
-                </LinearLayout>
-
-                <android.support.design.widget.VisibilityAwareImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_rede_descontos"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="250dp"
-                    android:layout_marginTop="-7dp"/>
-            </FrameLayout>
-            <FrameLayout
+                android:layout_height="wrap_content"
+                android:src="@drawable/projetos"
+                android:layout_marginTop="105dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="-9dp" />
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/lnMensagens"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/lnAmigo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorPrimary">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textStyle="normal"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="120dp"
-                            android:textColor="@color/colorDescMenu"
-                            android:text="Cartão Amigo"/>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@drawable/myrect"/>
-                </LinearLayout>
-
-                <android.support.design.widget.VisibilityAwareImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_card"
-                    android:layout_gravity="top|right"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="215dp"
-                    android:layout_marginTop="-7dp"/>
-            </FrameLayout>
-            <FrameLayout
+                android:layout_height="wrap_content"
+                android:src="@drawable/mensagens"
+                android:layout_marginTop="46dp"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="-9dp"
+                android:layout_marginRight="5dp"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/lnNoticias"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/lnSejaAmigo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorPrimary">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textStyle="normal"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:layout_marginRight="135dp"
-                            android:textColor="@color/colorDescMenu"
-                            android:text="Seja um Amigo"/>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@drawable/myrect"/>
-                </LinearLayout>
-
-                <android.support.design.widget.VisibilityAwareImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_donation"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="255dp"/>
-            </FrameLayout>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:src="@drawable/noticias"
+                android:layout_marginLeft="-6dp"
+                android:scaleType="fitXY"
+                android:layout_marginRight="80dp"/>
+    </FrameLayout>
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"

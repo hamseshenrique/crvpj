@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.software.hms.projeto.adapter.NoticiasAdapter;
 import com.software.hms.projeto.async.HmsRest;
 import com.software.hms.projeto.componentes.HmsStatics;
+import com.software.hms.projeto.componentes.Rodape;
 import com.software.hms.projeto.dto.MensagemDTO;
 import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.enuns.TipoMensagemEnum;
@@ -42,14 +43,8 @@ public class NoticiasActivity extends AppCompatActivity implements ObserverInter
         SharedPreferences sharedPreferences = getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(HmsStatics.getEmail(),null);
         hmsRest.loadMensagens(token, TipoMensagemEnum.MENSAGEM_NOTICIA);
-        ImageView imageView = (ImageView) findViewById(R.id.info);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),InfoActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+        Rodape rodape = new Rodape();
+        rodape.onClickButtons(this);
     }
 
     @Override
