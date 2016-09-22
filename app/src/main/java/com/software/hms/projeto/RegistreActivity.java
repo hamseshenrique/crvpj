@@ -66,7 +66,7 @@ public class RegistreActivity extends AppCompatActivity {
         estado = (Spinner) findViewById(R.id.estado);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.adapterEstado,android.R.layout.simple_spinner_item);
+                R.array.adapterEstado, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estado.setAdapter(adapter);
         estado.setSelection(0);
@@ -76,6 +76,7 @@ public class RegistreActivity extends AppCompatActivity {
                 TextView textView = (TextView) view;
                 valorEstado = textView.getText().toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -83,7 +84,7 @@ public class RegistreActivity extends AppCompatActivity {
 
         sexo = (Spinner) findViewById(R.id.sexo);
         adapter = ArrayAdapter.createFromResource(this,
-                R.array.adapterSexo,android.R.layout.simple_spinner_item);
+                R.array.adapterSexo, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sexo.setAdapter(adapter);
         sexo.setSelection(0);
@@ -105,16 +106,16 @@ public class RegistreActivity extends AppCompatActivity {
         confirmaPassword = (EditText) findViewById(R.id.confirmaPassword);
         email = (AutoCompleteTextView) findViewById(R.id.email);
 
-        Button button = (Button)findViewById(R.id.registre);
+        Button button = (Button) findViewById(R.id.registre);
 
-        final SharedPreferences sharedPref = getSharedPreferences("CRUZHMSVERMELHA",Context.MODE_PRIVATE);
+        final SharedPreferences sharedPref = getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validarCampos()){
+                if (validarCampos()) {
 
                     final UsuarioDTO usuarioDTO = new UsuarioDTO();
                     usuarioDTO.setEmail(email.getText().toString());
@@ -122,53 +123,22 @@ public class RegistreActivity extends AppCompatActivity {
                     usuarioDTO.setNome(nome.getText().toString());
                     usuarioDTO.setCpf(autoCpf.getText().toString());
                     usuarioDTO.setDateNascimento(autoData.getText().toString());
-                    if(!VALOR_DEF_ESTADO.equals(valorEstado)){
+                    if (!VALOR_DEF_ESTADO.equals(valorEstado)) {
                         usuarioDTO.setUf(valorEstado);
                     }
-                    if(!VALOR_DEF_SEXO.equals(valorSexo)){
+                    if (!VALOR_DEF_SEXO.equals(valorSexo)) {
                         usuarioDTO.setSexo(valorSexo);
                     }
                     usuarioDTO.setCidade(cidade.getText().toString());
                     usuarioDTO.setComplemento(complemento.getText().toString());
                     usuarioDTO.setSenha(password.getText().toString());
 
-                    final RegistrarAsync registrarAsync = new RegistrarAsync(context,editor);
+                    final RegistrarAsync registrarAsync = new RegistrarAsync(context, editor);
                     registrarAsync.execute(usuarioDTO);
 
                 }
             }
         });
-
-       /* Button btnFoto = (Button) findViewById(R.id.foto);
-        btnFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validarCampos()){
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                    }
-                }
-            }
-        });*/
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try{
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String imageFileName = "JPEG_" + timeStamp + "_";
-                File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                File image = File.createTempFile(imageFileName,".jpg",storageDir);
-
-                editor.putString("FOTO"+email.getText().toString(),image.getAbsolutePath());
-                editor.commit();
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
     }
 
 

@@ -57,6 +57,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/nome"
                                 android:text="Osvaldo Golsalvez Cruz"
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center_vertical"
@@ -117,8 +118,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_gravity="right" />
                 <android.support.design.widget.VisibilityAwareImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imgPer"
                     android:src="@drawable/doctor_clip_art_doctor5"
                     android:layout_gravity="left"
                     android:layout_marginLeft="30dp"/>

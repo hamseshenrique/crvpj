@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.software.hms.projeto.async.ObterUsuarioAsync;
 import com.software.hms.projeto.async.RedeDescontoAsync;
 import com.software.hms.projeto.componentes.Rodape;
 
@@ -60,8 +61,8 @@ public class MenuActivity extends AppCompatActivity {
         lnAmigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),CartaoAmigoActivity.class);
-                view.getContext().startActivity(intent);
+                ObterUsuarioAsync obterUsuarioAsync = new ObterUsuarioAsync(view.getContext(),Boolean.FALSE);
+                obterUsuarioAsync.execute();
             }
         });
         ImageView lnSejaAmigo = (ImageView) findViewById(R.id.lnSejaAmigo);

@@ -45,7 +45,7 @@ public class Rodape {
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ObterUsuarioAsync obterUsuarioAsync = new ObterUsuarioAsync(context);
+                ObterUsuarioAsync obterUsuarioAsync = new ObterUsuarioAsync(context,Boolean.TRUE);
                 obterUsuarioAsync.execute();
             }
         });

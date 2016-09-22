@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.software.hms.projeto.CartaoAmigoActivity;
 import com.software.hms.projeto.PerfilActivity;
 import com.software.hms.projeto.R;
 import com.software.hms.projeto.componentes.HmsStatics;
@@ -29,9 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ObterUsuarioAsync extends AsyncTask<Void,Void,RetornoDTO> {
     private ProgressDialog dialog;
     private Context context;
+    private Boolean isPerfil;
 
-    public ObterUsuarioAsync(final Context context){
+    public ObterUsuarioAsync(final Context context,final Boolean isPerfil){
         this.context = context;
+        this.isPerfil = isPerfil;
     }
 
     @Override
@@ -70,26 +73,41 @@ public class ObterUsuarioAsync extends AsyncTask<Void,Void,RetornoDTO> {
 
     @Override
     protected void onPostExecute(final RetornoDTO retornoDTO) {
-        dialog.dismiss();
-
-        if(retornoDTO.getRetornoEnum().equals(RetornoEnum.SUCESSO)){
-            Intent intent = new Intent(context,PerfilActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("usuario",retornoDTO.getUsuarioDTO());
-            intent.putExtras(bundle);
-            context.startActivity(intent);
-        }else{
+        try{
             dialog.dismiss();
 
-            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-            alertDialogBuilder.setTitle("Erro ao acessar Perfil Usuario !");
-            alertDialogBuilder.setPositiveButton(context.getString(R.string.ok),
-                    new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-            alertDialogBuilder.create().show();
+            if(retornoDTO.getRetornoEnum().equals(RetornoEnum.SUCESSO)){
+
+                HmsStatics.setFotoUsu(retornoDTO.getUsuarioDTO().getFoto());
+                retornoDTO.getUsuarioDTO().setFoto(null);
+                Intent intent = null;
+
+                if(isPerfil){
+                    intent = new Intent(context,PerfilActivity.class);
+                }else{
+                    intent = new Intent(context,CartaoAmigoActivity.class);
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("usuario",retornoDTO.getUsuarioDTO());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }else{
+                dialog.dismiss();
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Erro ao acessar Perfil Usuario !");
+                alertDialogBuilder.setPositiveButton(context.getString(R.string.ok),
+                        new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                alertDialogBuilder.create().show();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
     }
 }

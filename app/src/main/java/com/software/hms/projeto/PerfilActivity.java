@@ -14,19 +14,29 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.software.hms.projeto.async.AlterarUsuario;
+import com.software.hms.projeto.async.RegistrarAsync;
 import com.software.hms.projeto.componentes.HmsMask;
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.UsuarioDTO;
+import com.software.hms.projeto.security.TokenService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
@@ -52,6 +62,10 @@ public class PerfilActivity extends AppCompatActivity {
     private String valorSexo;
     private ImageView imgPer;
     private int REQUEST_IMAGE_CAPTURE = 1;
+    private static final String VALOR_DEF_ESTADO = "Estado";
+    private static final String VALOR_DEF_SEXO = "Sexo";
+    private String senha;
+    private Bitmap bitmapImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +86,10 @@ public class PerfilActivity extends AppCompatActivity {
         estado = (Spinner) findViewById(R.id.estado);
         imgPer = (ImageView) findViewById(R.id.imgPer);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapterEstado = ArrayAdapter.createFromResource(this,
                 R.array.adapterEstado,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        estado.setAdapter(adapter);
+        adapterEstado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estado.setAdapter(adapterEstado);
         estado.setSelection(0);
         estado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -88,11 +102,12 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
+
         sexo = (Spinner) findViewById(R.id.sexo);
-        adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapterSexo = ArrayAdapter.createFromResource(this,
                 R.array.adapterSexo,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sexo.setAdapter(adapter);
+        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sexo.setAdapter(adapterSexo);
         sexo.setSelection(0);
         sexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -123,6 +138,21 @@ public class PerfilActivity extends AppCompatActivity {
             password.setText(usuarioDTO.getSenha());
             email.setText(usuarioDTO.getEmail());
             confirmaPassword.setText(usuarioDTO.getSenha());
+            senha = usuarioDTO.getSenha();
+
+            if(!TextUtils.isEmpty(usuarioDTO.getUf())){
+                estado.setSelection(adapterEstado.getPosition(usuarioDTO.getUf()));
+            }
+            if(!TextUtils.isEmpty(usuarioDTO.getSexo())){
+                sexo.setSelection(adapterSexo.getPosition(usuarioDTO.getSexo()));
+            }
+
+            if(!TextUtils.isEmpty(HmsStatics.getFotoUsu())){
+                byte[] bty = Base64.decode(HmsStatics.getFotoUsu(),Base64.URL_SAFE);
+                bitmapImg = BitmapFactory.decodeByteArray(bty, 0, bty.length);
+                imgPer.setImageBitmap(bitmapImg);
+                imgPer.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
         }
 
         final CardView tirarFoto = (CardView) findViewById(R.id.tirarFoto);
@@ -148,6 +178,71 @@ public class PerfilActivity extends AppCompatActivity {
                 }
             }
         });
+        final Button button = (Button) findViewById(R.id.confirma);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (validarCampos()) {
+
+                    final UsuarioDTO usuarioDTO = new UsuarioDTO();
+                    usuarioDTO.setEmail(email.getText().toString());
+                    usuarioDTO.setLogin(email.getText().toString());
+                    usuarioDTO.setNome(nome.getText().toString());
+                    usuarioDTO.setCpf(autoCpf.getText().toString());
+                    usuarioDTO.setDateNascimento(autoData.getText().toString());
+                    if (!VALOR_DEF_ESTADO.equals(valorEstado)) {
+                        usuarioDTO.setUf(valorEstado);
+                    }
+                    if (!VALOR_DEF_SEXO.equals(valorSexo)) {
+                        usuarioDTO.setSexo(valorSexo);
+                    }
+                    usuarioDTO.setCidade(cidade.getText().toString());
+                    usuarioDTO.setComplemento(complemento.getText().toString());
+
+                    if(!senha.equals(password.getText().toString())){
+                        final TokenService tokenService = new TokenService();
+                        usuarioDTO.setSenha(tokenService.criptSenha(password.getText().toString()));
+                    }else{
+                        usuarioDTO.setSenha(senha);
+                    }
+                    if(bitmapImg != null){
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bitmapImg.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+                        usuarioDTO.setFoto(Base64.encodeToString(byteArray, Base64.NO_WRAP));
+                    }
+
+                    AlterarUsuario alterarUsuario = new AlterarUsuario(context);
+                    alterarUsuario.execute(usuarioDTO);
+                }
+            }
+        });
+
+    }
+
+    private Boolean validarCampos(){
+        Boolean isValido = Boolean.TRUE;
+        if(TextUtils.isEmpty(nome.getText().toString())){
+            nome.setError(getString(R.string.error_field_required));
+            isValido = Boolean.FALSE;
+        }
+        if(TextUtils.isEmpty(email.getText().toString())
+                && !email.getText().toString().contains("@")){
+            email.setError(getString(R.string.error_field_required));
+        }
+        if(TextUtils.isEmpty(password.getText().toString())){
+            password.setError(getString(R.string.error_field_required));
+            isValido = Boolean.FALSE;
+        }else if(TextUtils.isEmpty(confirmaPassword.getText().toString())){
+            confirmaPassword.setError(getString(R.string.error_field_required));
+            isValido = Boolean.FALSE;
+        }else if(!password.getText().toString().equals(confirmaPassword.getText().toString())){
+            confirmaPassword.setError(getString(R.string.senhaDif));
+            isValido = Boolean.FALSE;
+        }
+
+        return isValido;
     }
 
     private File getTempFile(Context context) {
@@ -191,29 +286,27 @@ public class PerfilActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(),null,bmOptions);
 
         int rotation = getRotationFromCamera(uri);
-        if(rotation != 0){
-            Matrix matrix = new Matrix();
-            matrix.postRotate(rotation);
-            Bitmap bmOut = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            imgPer.setImageBitmap(bmOut);
-        }else{
-            imgPer.setImageBitmap(bitmap);
-        }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(rotation);
+        Bitmap bmOut = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        imgPer.setImageBitmap(bmOut);
+        bitmapImg = bmOut;
 
         imgPer.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-
 
     }
 
     private int getRotationFromCamera(Uri imageFile) {
-        int rotate = 0;
+        int rotate = 270;
         try {
             context.getContentResolver().notifyChange(imageFile, null);
             ExifInterface exif = new ExifInterface(imageFile.getPath());
             int orientation = exif.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_NORMAL);
+
+            Log.i("CRUZVEMELHA",""+orientation);
+            Log.i("CRUZVERMELHA",imageFile.getPath());
 
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_270:

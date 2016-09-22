@@ -6,6 +6,7 @@ package com.software.hms.projeto.componentes;
 public class HmsStatics {
 
     private static String email;
+    private static String fotoUsu;
 
     public HmsStatics(){}
 
@@ -15,5 +16,13 @@ public class HmsStatics {
 
     public static void setEmail(final String email){
         HmsStatics.email = email;
+    }
+
+    public static String getFotoUsu() {
+        return fotoUsu;
+    }
+
+    public static void setFotoUsu(String fotoUsu) {
+        HmsStatics.fotoUsu = fotoUsu;
     }
 }
