@@ -12,10 +12,5 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-
-        TextView textView = (TextView)findViewById(R.id.txtDesc);
-        textView.setText(Html.fromHtml(getString(R.string.info)));
-
-
     }
 }

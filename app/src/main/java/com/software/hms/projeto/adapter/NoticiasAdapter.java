@@ -1,6 +1,10 @@
 package com.software.hms.projeto.adapter;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +36,10 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasHolder>{
     @Override
     public void onBindViewHolder(NoticiasHolder holder, int position) {
         holder.txtBody.setText(list.get(position).getCabecalho());
+        if(!TextUtils.isEmpty(list.get(position).getImg())){
+            byte[] bty = Base64.decode(list.get(position).getImg(),Base64.URL_SAFE);
+            holder.img.setImageBitmap(BitmapFactory.decodeByteArray(bty, 0, bty.length));
+        }
         holder.onClick(list.get(position));
     }
 

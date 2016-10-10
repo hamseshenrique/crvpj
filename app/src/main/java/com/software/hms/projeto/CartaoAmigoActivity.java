@@ -2,6 +2,7 @@ package com.software.hms.projeto;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ public class CartaoAmigoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cartao_amigo);
+        getSupportActionBar().hide();
 
         Bundle extras = getIntent().getExtras();
 
@@ -36,6 +38,9 @@ public class CartaoAmigoActivity extends AppCompatActivity {
                 imgPer.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
         }
+
+        //TextView textv = (TextView) findViewById(R.id.txtAmigo);
+        //textv.setShadowLayer(1, 0, 0, Color.BLACK);
 
 
     }

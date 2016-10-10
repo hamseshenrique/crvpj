@@ -405,7 +405,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 usuarioDTO.setSenha(tokenService.criptSenha(mPassword));
 
                 final Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080")
+                        .baseUrl(HmsStatics.SERVER)
                         .client(OkHttpBasicAuth.createHead(token)).
                         addConverterFactory(GsonConverterFactory.create()).build();
 

@@ -22,6 +22,8 @@ public class MensagemDTO implements Serializable {
 	private String data;
 
 	private String cabecalho;
+
+	private String img;
 	
 	public MensagemDTO(){}
 
@@ -74,5 +76,14 @@ public class MensagemDTO implements Serializable {
 
 	public void setCabecalho(String cabecalho) {
 		this.cabecalho = cabecalho;
+	}
+
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 }

@@ -45,7 +45,7 @@ public class EsqueceuSenhaAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
 
 
             final Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                    "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080").client(OkHttpBasicAuth.createHead(token)).
+                    HmsStatics.SERVER).client(OkHttpBasicAuth.createHead(token)).
                     addConverterFactory(GsonConverterFactory.create()).build();
 
             final Usuario usuarioRest = retrofit.create(Usuario.class);

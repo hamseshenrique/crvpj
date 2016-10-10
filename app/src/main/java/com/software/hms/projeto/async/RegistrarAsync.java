@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.software.hms.projeto.MenuActivity;
 import com.software.hms.projeto.R;
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.enuns.RetornoEnum;
 import com.software.hms.projeto.dto.UsuarioDTO;
@@ -80,11 +81,11 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
 
                         return chain.proceed(request);
                     }
-                }).readTimeout(80000, TimeUnit.MILLISECONDS).build();;
+                }).readTimeout(80000, TimeUnit.MILLISECONDS).build();
 
 
                 final Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                        "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080").client(okHttpClient).
+                        HmsStatics.SERVER).client(okHttpClient).
                         addConverterFactory(GsonConverterFactory.create()).build();
 
                 final Usuario usuario = retrofit.create(Usuario.class);
@@ -107,12 +108,12 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
     protected void onPostExecute(final RetornoDTO retornoDTO) {
 
         Log.i("CRUZ VERMELHA",retornoDTO.getRetornoEnum().getDescricao());
-
+        dialog.dismiss();
         if(retornoDTO.getRetornoEnum().equals(RetornoEnum.SUCESSO)){
             editor.putString(name,retornoDTO.getToken());
+            editor.putString("LOGADO",name);
+            HmsStatics.setEmail(name);
             editor.commit();
-
-            dialog.dismiss();
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setTitle(R.string.registrado);
@@ -127,8 +128,6 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
 
             alertDialogBuilder.create().show();
         }else if(retornoDTO.getRetornoEnum().equals(RetornoEnum.USUARIO_NAO_CADASTRADO)){
-            dialog.dismiss();
-
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setTitle(retornoDTO.getDescricao());
             alertDialogBuilder.setPositiveButton(context.getString(R.string.ok),
@@ -139,6 +138,18 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
                     });
 
             alertDialogBuilder.create().show();
+        }else{
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            alertDialogBuilder.setTitle(retornoDTO.getDescricao());
+            alertDialogBuilder.setPositiveButton(context.getString(R.string.erro_cadastro_usu),
+                    new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+
+            alertDialogBuilder.create().show();
+
         }
     }
 }

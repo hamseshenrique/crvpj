@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +39,9 @@ import com.software.hms.projeto.security.TokenService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -278,22 +281,49 @@ public class PerfilActivity extends AppCompatActivity {
         }
     }
 
-    private void setImage(final Uri uri) throws FileNotFoundException {
+    private void setImage(final Uri uri) throws IOException {
 
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        AssetFileDescriptor fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");
+        ParcelFileDescriptor parcelFileDescriptor =
+                getContentResolver().openFileDescriptor(uri, "r");
 
-        Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(),null,bmOptions);
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
 
-        int rotation = getRotationFromCamera(uri);
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor,null,options);
+        options.inSampleSize = calculoImage(options, 100, 100);
+        options.inJustDecodeBounds = false;
+
+        bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor,null,options);
         Matrix matrix = new Matrix();
-        matrix.postRotate(rotation);
+        matrix.postRotate(getRotationFromCamera(uri));
         Bitmap bmOut = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+        parcelFileDescriptor.close();
+
         imgPer.setImageBitmap(bmOut);
         bitmapImg = bmOut;
-
         imgPer.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+    }
+
+    private int calculoImage(final BitmapFactory.Options options,
+                             final int reqWidth,final int reqHeight){
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        final int halfHeight = height / 2;
+        final int halfWidth = width / 2;
+
+        while ((halfHeight / inSampleSize) >= reqHeight
+                && (halfWidth / inSampleSize) >= reqWidth) {
+            inSampleSize *= 2;
+        }
+
+        return inSampleSize;
     }
 
     private int getRotationFromCamera(Uri imageFile) {

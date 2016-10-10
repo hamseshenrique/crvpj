@@ -16,6 +16,10 @@
     <string name="registrado">Registrado Com Sucesso</string>
     <string name="erro">Tente Novamente</string>
     <string name="ok">OK</string>
+    <string name="sair_app">Sair do Aplicativo?</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="erro_cadastro_usu">Erro ao cadastrar Usuario !</string>
     <string name="esqueceu_senha">Esqueceu sua senha</string>
     <string name="cadastrese">Cadastre-se</string>
     <string name="nome">Nome</string>
@@ -30,31 +34,31 @@
     <string name="senhaDif">Senha diferente</string>
     <string name="ola">Olá é sua primeira vez ? - Informe seus dados</string>
     <string name="senhaEnviada">Senha enviada para seu email !</string>
-    <string name="info">A Cruz Vermelha é a mais importante organização humanitária do mundo e reúne 97 milhões de voluntários em todo o planeta. A instituição é neutra, imparcial e não está vinculada a qualquer Estado.<br/>  Seu objetivo é proteger a vida e a saúde humana, sem discriminação de nacionalidade, raça, sexo, religião, classe social ou opiniões políticas.<br/>
+    <string name="info">A Cruz Vermelha é a mais importante organização humanitária do mundo e reúne 97 milhões de voluntários em todo o planeta. A instituição é neutra, imparcial e não está vinculada a qualquer Estado.\n  Seu objetivo é proteger a vida e a saúde humana, sem discriminação de nacionalidade, raça, sexo, religião, classe social ou opiniões políticas.\n
 
-Foi fundada em 1863 na Genebra, Suíça, por Jean Henry Dunant, que 38 anos mais tarde tornou-se o primeiro ganhador do prêmio Nobel da Paz.<br/>
+Foi fundada em 1863 na Genebra, Suíça, por Jean Henry Dunant, que 38 anos mais tarde tornou-se o primeiro ganhador do prêmio Nobel da Paz.\n
 
-Ao todo são 190 Sociedades Nacionais de Cruz Vermelha no mundo atuando sob sete Princípios Fundamentais:<br/>
+Ao todo são 190 Sociedades Nacionais de Cruz Vermelha no mundo atuando sob sete Princípios Fundamentais:\n\n
 
-1.    Humanidade,<br/>
+1.    Humanidade,\n\n
 
-2.    Imparcialidade,<br/>
+2.    Imparcialidade,\n\n
 
-3.    Neutralidade,<br/>
+3.    Neutralidade,\n\n
 
-4.    Independência,<br/>
+4.    Independência,\n\n
 
-5.    Voluntariado<br/>
+5.    Voluntariado\n\n
 
-6.    Unidade,<br/>
+6.    Unidade,\n\n
 
-7.    Universalidade<br/>
+7.    Universalidade\n\n
 
-Sua missão, exclusivamente humanitária, é proteger a vida e a dignidade das vítimas de conflitos armados e outras situações de violência, assim como prestar-lhes assistência.<br/>
+Sua missão, exclusivamente humanitária, é proteger a vida e a dignidade das vítimas de conflitos armados e outras situações de violência, assim como prestar-lhes assistência.\n
 
-Cruz Vermelha Brasileira<br/>
+Cruz Vermelha Brasileira\n
 
-A Cruz Vermelha Brasileira é uma sociedade civil filantrópica, sem fins lucrativos de Utilidade Pública Federal, fundada em 1907, que através de suas filiais em todo território nacional busca proteger a vida e a integridade de todos.<br/>
+A Cruz Vermelha Brasileira é uma sociedade civil filantrópica, sem fins lucrativos de Utilidade Pública Federal, fundada em 1907, que através de suas filiais em todo território nacional busca proteger a vida e a integridade de todos.\n
 
 No Brasil atua não só com a missão de agir humanitariamente em favor de todas as vítimas de guerra, mas também trabalha pela melhoria de saúde, prevenção de doenças e organização de serviços de socorros em emergências às vítimas de calamidades, seja qual for a causa.</string>
 

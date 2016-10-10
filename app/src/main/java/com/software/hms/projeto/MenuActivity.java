@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.software.hms.projeto.async.ObterUsuarioAsync;
 import com.software.hms.projeto.async.RedeDescontoAsync;
@@ -24,7 +25,7 @@ public class MenuActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_menu);
 
-        ImageView lnNoticias = (ImageView) findViewById(R.id.lnNoticias);
+        LinearLayout lnNoticias = (LinearLayout) findViewById(R.id.lnNoticias);
         lnNoticias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        ImageView lnMensagens = (ImageView) findViewById(R.id.lnMensagens);
+        LinearLayout lnMensagens = (LinearLayout) findViewById(R.id.lnMensagens);
         lnMensagens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
                 view.getContext().startActivity(intent);
             }
         });
-        ImageView lnProjetos = (ImageView) findViewById(R.id.lnProjetos);
+        LinearLayout lnProjetos = (LinearLayout) findViewById(R.id.lnProjetos);
         lnProjetos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +50,7 @@ public class MenuActivity extends AppCompatActivity {
                 view.getContext().startActivity(intent);
             }
         });
-        ImageView lnDescontos = (ImageView) findViewById(R.id.lnDescontos);
+        LinearLayout lnDescontos = (LinearLayout) findViewById(R.id.lnRede);
         lnDescontos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +58,7 @@ public class MenuActivity extends AppCompatActivity {
                 redeDescontoAsync.execute();
             }
         });
-        ImageView lnAmigo = (ImageView) findViewById(R.id.lnAmigo);
+        LinearLayout lnAmigo = (LinearLayout) findViewById(R.id.lnCartaoAmigo);
         lnAmigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +66,7 @@ public class MenuActivity extends AppCompatActivity {
                 obterUsuarioAsync.execute();
             }
         });
-        ImageView lnSejaAmigo = (ImageView) findViewById(R.id.lnSejaAmigo);
+        LinearLayout lnSejaAmigo = (LinearLayout) findViewById(R.id.lnSejaAmigo);
         lnSejaAmigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

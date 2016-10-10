@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#e72f29</color>
+    <color name="colorCartao">#b11f1b</color>
     <color name="colorRegistre">#5663de</color>
     <color name="colorPrimaryDark">#e72f29</color>
     <color name="colorAccent">#FF4081</color>

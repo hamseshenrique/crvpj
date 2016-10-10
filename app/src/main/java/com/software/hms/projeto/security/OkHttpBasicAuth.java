@@ -39,8 +39,6 @@ public class OkHttpBasicAuth {
                     authSing = tokenService.criptSenha("");
                 }
 
-
-
                 final StringBuilder toSing = new StringBuilder();
                 toSing.append(original.method());
                 toSing.append(authSing);

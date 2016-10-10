@@ -45,7 +45,8 @@
                     android:layout_marginRight="4dp"
                     android:textSize="13sp"
                     android:linksClickable="true"
-                    android:autoLink="web"/>
+                    android:autoLink="web"
+                    android:text="@string/info"/>
             </LinearLayout>
 
         </ScrollView>

@@ -2,6 +2,7 @@ package com.software.hms.projeto.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.software.hms.projeto.R;
@@ -16,11 +17,13 @@ import org.w3c.dom.Text;
 public class NoticiasHolder extends RecyclerView.ViewHolder{
 
     public TextView txtBody;
+    public ImageView img;
 
     public NoticiasHolder(View item){
         super(item);
 
         txtBody = (TextView) item.findViewById(R.id.txtDesc);
+        img = (ImageView) item.findViewById(R.id.img);
     }
 
     public void onClick(final MensagemDTO mensagemDTO){

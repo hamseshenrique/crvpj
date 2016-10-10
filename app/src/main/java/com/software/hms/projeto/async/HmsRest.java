@@ -2,6 +2,7 @@ package com.software.hms.projeto.async;
 
 import android.util.Log;
 
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.enuns.RetornoEnum;
 import com.software.hms.projeto.enuns.TipoMensagemEnum;
@@ -32,7 +33,7 @@ public class HmsRest {
     public void loadMensagens(final String token, final TipoMensagemEnum tipoMensagemEnum){
         try{
             final Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080")
+                    .baseUrl(HmsStatics.SERVER)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(OkHttpBasicAuth.createHead(token)).build();

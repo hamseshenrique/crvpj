@@ -50,9 +50,8 @@ public class ObterUsuarioAsync extends AsyncTask<Void,Void,RetornoDTO> {
         try{
             final SharedPreferences sharedPreferences = context.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
             String token = sharedPreferences.getString(HmsStatics.getEmail(),null);
-
             Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                    "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080").client(OkHttpBasicAuth.createHead(token)).
+                    HmsStatics.SERVER).client(OkHttpBasicAuth.createHead(token)).
                     addConverterFactory(GsonConverterFactory.create()).build();
 
             Usuario usuario = retrofit.create(Usuario.class);
@@ -93,6 +92,7 @@ public class ObterUsuarioAsync extends AsyncTask<Void,Void,RetornoDTO> {
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }else{
+
                 dialog.dismiss();
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);

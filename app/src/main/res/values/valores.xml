@@ -3,7 +3,7 @@
     <string-array name="adapterSexo">
         <item>Sexo</item>
         <item>Masculino</item>
-        <item>Feminio</item>
+        <item>Feminino</item>
     </string-array>
     <string-array name="adapterEstado">
         <item>Estado</item>

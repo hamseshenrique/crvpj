@@ -29,9 +29,10 @@
 
                 <android.support.design.widget.VisibilityAwareImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="75dp"
                     android:src="@drawable/logocrz"
-                    android:layout_gravity="right"/>
+                    android:layout_gravity="right"
+                    android:layout_marginRight="-50dp"/>
             </LinearLayout>
 
             <FrameLayout
@@ -46,33 +47,36 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:elevation="10dp"
+                        android:layout_marginTop="-8dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/colorPrimary">
+                        android:background="@color/colorCartao">
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_gravity="center_horizontal">
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="130dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/nome"
                                 android:text="Osvaldo Golsalvez Cruz"
                                 android:layout_gravity="center_horizontal"
-                                android:gravity="center_vertical"
+                                android:gravity="left"
                                 android:textSize="20sp"
                                 android:layout_marginTop="10dp"
                                 android:typeface="sans"
                                 android:textStyle="bold"
+                                android:layout_marginLeft="5dp"
                                 android:textColor="@android:color/black"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="000000000001-01"
-                                android:layout_gravity="center_horizontal"
+                                android:layout_gravity="left"
                                 android:textSize="20sp"
                                 android:typeface="sans"
+                                android:layout_marginLeft="10dp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -94,19 +98,21 @@
                             android:text="Categoria:"
                             android:layout_gravity="right"
                             android:gravity="right"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:typeface="sans"
                             android:textStyle="bold"
+                            android:paddingTop="6dp"
                             android:textColor="@android:color/black"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" COLOBAORADOR"
+                            android:text=" COLABAORADOR"
                             android:layout_gravity="right"
                             android:gravity="right"
-                            android:textSize="20sp"
+                            android:textSize="14sp"
                             android:typeface="sans"
+                            android:paddingTop="9dp"
                             android:layout_marginRight="10dp"/>
 
                     </LinearLayout>
@@ -119,34 +125,42 @@
                     android:layout_gravity="right" />
                 <android.support.design.widget.VisibilityAwareImageButton
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="115dp"
                     android:id="@+id/imgPer"
-                    android:src="@drawable/doctor_clip_art_doctor5"
+                    android:src="@drawable/oswcruz"
                     android:layout_gravity="left"
+                    android:layout_marginTop="-10dp"
                     android:layout_marginLeft="30dp"/>
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="left"
+                android:layout_gravity="left">
                 <TextView
+                    android:id="@+id/txtAmigo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AMIGO CBV"
                     android:layout_gravity="right"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:textSize="40sp"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="30dp"
                     android:typeface="sans"
                     android:textStyle="bold"
-                    android:textColor="@android:color/holo_red_dark"/>
+                    android:textColor="@android:color/holo_red_dark"
+                    android:shadowColor="#555555"
+                    android:shadowDx="5.0"
+                    android:shadowDy="5.0"
+                    android:shadowRadius="3.0"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Validade: 08/19"
-                    android:textSize="20sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="140dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="130dp"
                     android:typeface="sans"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"/>

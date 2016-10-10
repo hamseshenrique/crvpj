@@ -22,74 +22,221 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="25dp"
         android:layout_weight="1">
-
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="-6dp">
-            <android.support.design.widget.VisibilityAwareImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:id="@+id/lnSejaAmigo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/seja_amigo"
-                android:layout_marginTop="278dp"
-                android:scaleType="fitXY"
-                android:layout_marginRight="20dp"
-                android:paddingLeft="-9dp"/>
-            <android.support.design.widget.VisibilityAwareImageButton
-                android:id="@+id/lnAmigo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cartao_amigo"
-                android:layout_marginTop="214dp"
-                android:layout_marginLeft="-3dp"
-                android:scaleType="fitXY" />
-            <android.support.design.widget.VisibilityAwareImageButton
-                android:id="@+id/lnDescontos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/rede_de_descontos"
-                android:layout_marginTop="163dp"
-                android:layout_marginRight="60dp"
-                android:layout_marginLeft="-7dp"
-                android:scaleType="fitXY"/>
-            <android.support.design.widget.VisibilityAwareImageButton
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="195dp"
+                android:layout_marginRight="93dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="SEJA UM AMIGO"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="38dp"
+                        android:gravity="center_vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lnCartaoAmigo"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="156dp"
+                android:layout_marginRight="45dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="CARTÃO AMIGO"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="38dp"
+                        android:gravity="center_vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lnRede"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="117dp"
+                android:layout_marginRight="80dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="REDE DE DESCONTOS"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="38dp"
+                        android:gravity="center_vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/lnProjetos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/projetos"
-                android:layout_marginTop="105dp"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="-9dp" />
-            <android.support.design.widget.VisibilityAwareImageButton
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="78dp"
+                android:layout_marginRight="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="PROJETOS"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="38dp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/lnMensagens"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mensagens"
-                android:layout_marginTop="46dp"
-                android:scaleType="fitXY"
-                android:layout_marginLeft="-9dp"
-                android:layout_marginRight="5dp"/>
-            <android.support.design.widget.VisibilityAwareImageButton
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="39dp"
+                android:layout_marginRight="80dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="MENSAGENS"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="38dp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/lnNoticias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/noticias"
-                android:layout_marginLeft="-6dp"
-                android:scaleType="fitXY"
-                android:layout_marginRight="80dp"/>
-    </FrameLayout>
-    </ScrollView>
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="110dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="NOTÍCIAS"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="38dp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/imgNoticia"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:src="@drawable/icon_noticias"
+                android:layout_gravity="right"
+                android:layout_marginTop="4dp"
+                android:scaleType="fitStart"
+                android:layout_marginRight="110dp"
+                android:rotation="-8"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/imgMsg"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:src="@drawable/icon_mensagens"
+                android:layout_gravity="right"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="39dp"
+                android:scaleType="fitStart"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/imgProjeto"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:src="@drawable/icon_projeto"
+                android:layout_gravity="right"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="78dp"
+                android:scaleType="fitStart"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/imgRede"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:src="@drawable/icon_rede"
+                android:layout_gravity="right"
+                android:layout_marginTop="117dp"
+                android:layout_marginRight="65dp"
+                android:scaleType="fitStart"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/imgCartao"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/icon_cartao"
+                android:layout_gravity="right"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="150dp"
+                android:scaleType="fitStart"/>
+            <android.support.design.widget.VisibilityAwareImageButton
+                android:id="@+id/imgSejaAmigo"
+                android:layout_width="70dp"
+                android:layout_height="90dp"
+                android:src="@drawable/icon_amigo"
+                android:layout_gravity="right"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="190dp"
+                android:scaleType="fitStart"/>
+          </FrameLayout>
+        </ScrollView>
+
+
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0">
-        <include layout="@layout/rodape_layout"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+            <include layout="@layout/rodape_layout"/>
+        </LinearLayout>
+    
+    
+    
+    
+    
     </LinearLayout>
-
-
-
-
-
-</LinearLayout>

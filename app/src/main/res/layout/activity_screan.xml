@@ -5,7 +5,5 @@
     android:layout_height="match_parent"
     tools:context="com.software.hms.projeto.ScreanActivity"
     android:orientation="vertical"
-    android:background="@drawable/cruz"
-    android:layout_gravity="center_vertical"
-    android:gravity="center_vertical">
+    android:background="@drawable/cruz">
 </LinearLayout>
