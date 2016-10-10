@@ -27,7 +27,7 @@ public class HmsStatics {
     private static String fotoUsu;
     public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
     //public static final String SERVER = "http://192.168.100.13:8080";
-    private static final String DUMMY_MERCHANT_ACCESS_TOKEN_BR = "mlb-cards-data";
+    private static final String DUMMY_MERCHANT_ACCESS_TOKEN_BR = "APP_USR-5077992028539907-093016-7e9ce7a01e18346963342f1902b6b04b__LD_LA__-228687664";
     public static final String YOUR_TOKEN = "APP_USR-46294dde-90eb-4e0e-bd8f-437391748e9d";
 
     public HmsStatics(){}
@@ -64,7 +64,7 @@ public class HmsStatics {
 
             Long campaignId = (discount != null) ? discount.getId() : null;
 
-            MerchantPayment payment = new MerchantPayment(item, installments, cardIssuerId,
+            MerchantPayment payment = new MerchantPayment(item, installments, 5077992028539907L,
                     token, paymentMethodId, campaignId, DUMMY_MERCHANT_ACCESS_TOKEN_BR);
 
             ErrorHandlingCallAdapter.MyCall<Payment> call = MerchantServer.createPayment(activity,
