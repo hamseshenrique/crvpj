@@ -40,7 +40,6 @@ import retrofit2.Retrofit;
 
 public class CardActivity extends AppCompatActivity {
 
-    private static final String yourPublicKey = "TEST-0478d966-6c35-42be-8978-54d9526a2e5a";
     private MercadoPago mMercadoPago;
     private CardActivity cardActivity;
     protected String mKey;
@@ -71,7 +70,7 @@ public class CardActivity extends AppCompatActivity {
 
         mMercadoPago = new MercadoPago.Builder()
                 .setContext(this)
-                .setPublicKey(yourPublicKey)
+                .setPublicKey(HmsStatics.YOUR_TOKEN)
                 .build();
 
         final String paymentMethod = this.getIntent().getStringExtra("paymentMethod");
@@ -264,7 +263,7 @@ public class CardActivity extends AppCompatActivity {
 
         MercadoPago mercadoPago = new MercadoPago.Builder()
                 .setContext(cardActivity)
-                .setKey(yourPublicKey,"public_key")
+                .setKey(HmsStatics.YOUR_TOKEN,"public_key")
                 .build();
 
         ErrorHandlingCallAdapter.MyCall<List<IdentificationType>> call = mercadoPago.getIdentificationTypes();

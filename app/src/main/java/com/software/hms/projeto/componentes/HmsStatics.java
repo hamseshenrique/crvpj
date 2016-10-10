@@ -28,6 +28,7 @@ public class HmsStatics {
     public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
     //public static final String SERVER = "http://192.168.100.13:8080";
     private static final String DUMMY_MERCHANT_ACCESS_TOKEN_BR = "mlb-cards-data";
+    public static final String YOUR_TOKEN = "APP_USR-46294dde-90eb-4e0e-bd8f-437391748e9d";
 
     public HmsStatics(){}
 
@@ -67,7 +68,7 @@ public class HmsStatics {
                     token, paymentMethodId, campaignId, DUMMY_MERCHANT_ACCESS_TOKEN_BR);
 
             ErrorHandlingCallAdapter.MyCall<Payment> call = MerchantServer.createPayment(activity,
-                    "https://www.mercadopago.com", "/v1/payments", payment);
+                    "https://www.mercadopago.com", "/v1/payments/", payment);
             call.enqueue(new ErrorHandlingCallAdapter.MyCallback<Payment>() {
                 @Override
                 public void success(Response<Payment> response) {

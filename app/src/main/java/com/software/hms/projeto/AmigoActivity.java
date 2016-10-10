@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.mercadopago.core.MercadoPago;
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.componentes.Rodape;
 
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import java.util.List;
 
 public class AmigoActivity extends AppCompatActivity {
 
-    private static final String yourPublicKey = "TEST-0478d966-6c35-42be-8978-54d9526a2e5a";
     protected List<String> mSupportedPaymentTypes = new ArrayList<String>(){{
         add("credit_card");
     }};
@@ -38,7 +38,7 @@ public class AmigoActivity extends AppCompatActivity {
                 try{
                     new MercadoPago.StartActivityBuilder()
                             .setActivity(amigo)
-                            .setPublicKey(yourPublicKey)
+                            .setPublicKey(HmsStatics.YOUR_TOKEN)
                             .setSupportedPaymentTypes(mSupportedPaymentTypes)
                             .startPaymentMethodsActivity();
                 }catch (Exception e){
@@ -53,12 +53,6 @@ public class AmigoActivity extends AppCompatActivity {
 
         if (requestCode == MercadoPago.PAYMENT_METHODS_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                /*new MercadoPago.StartActivityBuilder()
-                        .setActivity(amigo)
-                        .setPublicKey(yourPublicKey)
-                        .setSupportedPaymentTypes(mSupportedPaymentTypes)
-                        .setRequireSecurityCode(false)
-                        .startNewCardActivity()*/
                 Intent intent = new Intent(this,CardActivity.class);
                 intent.putExtra("paymentMethod",data.getStringExtra("paymentMethod"));
                 this.startActivity(intent);
