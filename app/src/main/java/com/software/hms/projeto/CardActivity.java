@@ -1,15 +1,20 @@
 package com.software.hms.projeto;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,13 +27,21 @@ import com.mercadopago.core.MercadoPago;
 import com.mercadopago.model.ApiException;
 import com.mercadopago.model.CardToken;
 import com.mercadopago.model.IdentificationType;
+import com.mercadopago.model.Payment;
 import com.mercadopago.model.PaymentMethod;
 import com.mercadopago.model.Token;
 import com.mercadopago.util.ApiUtil;
 import com.mercadopago.util.JsonUtil;
 import com.mercadopago.util.LayoutUtil;
 import com.mercadopago.util.MercadoPagoUtil;
+import com.software.hms.projeto.async.PagamentoAsync;
+import com.software.hms.projeto.componentes.HmsMask;
 import com.software.hms.projeto.componentes.HmsStatics;
+import com.software.hms.projeto.dto.PagamentoDTO;
+import com.software.hms.projeto.dto.PayerDTO;
+import com.software.hms.projeto.dto.RetornoDTO;
+import com.software.hms.projeto.interfaces.CruzVermelhaRest;
+import com.software.hms.projeto.security.OkHttpBasicAuth;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,6 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CardActivity extends AppCompatActivity {
 
@@ -60,6 +74,13 @@ public class CardActivity extends AppCompatActivity {
     protected Spinner mIdentificationType;
     protected RelativeLayout mSecurityCodeLayout;
     protected EditText mSecurityCode;
+    private static final String OUTRO = "Outro Valor";
+    private String valor;
+    private RelativeLayout otrValor;
+    private EditText txtOtrValor;
+    private Integer parcelas;
+    private Spinner cbParcelas;
+    private Spinner cbValor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +117,10 @@ public class CardActivity extends AppCompatActivity {
         mExpiryError = (TextView) findViewById(R.id.expiryError);
         mExpiryMonth = (EditText) findViewById(R.id.expiryMonth);
         mExpiryYear = (EditText) findViewById(R.id.expiryYear);
+        otrValor = (RelativeLayout) findViewById(R.id.otrValor);
+
+        txtOtrValor = (EditText) findViewById(R.id.txtOtrValor);
+        txtOtrValor.addTextChangedListener(new HmsMask("##.###.###,##"));
 
         // Set identification type listener to control identification number keyboard
         setIdentificationNumberKeyboardBehavior();
@@ -132,6 +157,51 @@ public class CardActivity extends AppCompatActivity {
 
         // Set security code visibility
         setSecurityCodeLayout();
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.adapterValor, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cbValor = (Spinner)findViewById(R.id.cbValor);
+        cbValor.setAdapter(adapter);
+        cbValor.setSelection(0);
+        cbValor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView textView = (TextView) view;
+                valor = textView.getText().toString();
+                if(valor.equals(OUTRO)){
+                    otrValor.setVisibility(View.VISIBLE);
+                    valor = "";
+                }else{
+                    otrValor.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        ArrayAdapter<CharSequence> adapterParcelas = ArrayAdapter.createFromResource(this,
+                R.array.adapterParcelas, android.R.layout.simple_spinner_item);
+        adapterParcelas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cbParcelas = (Spinner) findViewById(R.id.cbParcelas);
+        cbParcelas.setAdapter(adapterParcelas);
+        cbParcelas.setSelection(0);
+        cbParcelas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView textView = (TextView) view;
+                if(!TextUtils.isEmpty(textView.getText().toString())){
+                    parcelas = Integer.valueOf(textView.getText().toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     protected void setContentView() {
@@ -165,9 +235,28 @@ public class CardActivity extends AppCompatActivity {
             mMercadoPago.createToken(cardToken).enqueue(new ErrorHandlingCallAdapter.MyCallback<Token>() {
                 @Override
                 public void success(Response<Token> response) {
-                    Token token = response.body();
-                    HmsStatics.createPayment(cardActivity,token.getCardId(),1,
-                            null,mPaymentMethod,null,new BigDecimal("100"));
+
+                    Token tokenMercado = response.body();
+
+                    final SharedPreferences sharedPreferences = cardActivity.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
+                    final String token = sharedPreferences.getString(HmsStatics.getEmail(),null);
+
+                    final PagamentoDTO pagamentoDTO = new PagamentoDTO();
+                    pagamentoDTO.setDescription("CRUZ VERMELHA");
+                    pagamentoDTO.setInstallments(parcelas);
+                    pagamentoDTO.setPayment_method_id(mPaymentMethod.getId());
+                    pagamentoDTO.setToken(tokenMercado.getId());
+                    pagamentoDTO.setTransaction_amount(new BigDecimal(valor.replace(".","").replace(",",".")).doubleValue());
+
+//                    PagamentoAsync pagamentoAsync = new PagamentoAsync(cardActivity,token);
+//                    pagamentoAsync.execute(pagamentoDTO);
+//                    Payment payment = new Payment();
+//                    payment.set
+//                    new MercadoPago.StartActivityBuilder()
+//                            .setActivity(cardActivity)
+//                            .setPayment(response.body())
+//                            .setPaymentMethod(mPaymentMethod)
+//                            .startCongratsActivity();
                 }
 
                 @Override
@@ -242,6 +331,22 @@ public class CardActivity extends AppCompatActivity {
             } else {
                 mIdentificationNumber.setError(null);
             }
+        }
+
+        if(TextUtils.isEmpty(valor)){
+            cbValor.setBackgroundColor(Color.RED);
+            result = false;
+        }else if(valor.equals(OUTRO) && TextUtils.isEmpty(txtOtrValor.getText().toString())){
+            txtOtrValor.setError("Informe um Valor");
+            txtOtrValor.requestFocus();
+            result = false;
+        }else{
+            txtOtrValor.setError(null);
+        }
+
+        if(parcelas == null){
+            cbParcelas.setBackgroundColor(Color.RED);
+            result = false;
         }
 
         return result;

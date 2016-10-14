@@ -6,17 +6,29 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
+import com.mercadopago.PaymentMethodsActivity;
+import com.mercadopago.adapters.ErrorHandlingCallAdapter;
 import com.mercadopago.core.MercadoPago;
+import com.mercadopago.model.ApiException;
+import com.mercadopago.model.Card;
+import com.mercadopago.model.PaymentMethod;
+import com.mercadopago.util.JsonUtil;
+import com.mercadopago.util.LayoutUtil;
+import com.mercadopago.util.MercadoPagoUtil;
 import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.componentes.Rodape;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Response;
+
 public class AmigoActivity extends AppCompatActivity {
 
     protected List<String> mSupportedPaymentTypes = new ArrayList<String>(){{
         add("credit_card");
+        add("debit_card");
+        add("prepaid_card");
     }};
 
     private AmigoActivity amigo;
@@ -36,15 +48,18 @@ public class AmigoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    new MercadoPago.StartActivityBuilder()
+                    Intent intent = new Intent(amigo,FormaPagamentoActivity.class);
+                    amigo.startActivity(intent);
+/*                    new MercadoPago.StartActivityBuilder()
+                            .setShowBankDeals(true)
                             .setActivity(amigo)
                             .setPublicKey(HmsStatics.YOUR_TOKEN)
                             .setSupportedPaymentTypes(mSupportedPaymentTypes)
-                            .startPaymentMethodsActivity();
+                            .startPaymentMethodsActivity();*/
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
         });
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -327,32 +328,17 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private int getRotationFromCamera(Uri imageFile) {
-        int rotate = 270;
+        int orientation = 0;
         try {
-            context.getContentResolver().notifyChange(imageFile, null);
-            ExifInterface exif = new ExifInterface(imageFile.getPath());
-            int orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL);
-
-            Log.i("CRUZVEMELHA",""+orientation);
-            Log.i("CRUZVERMELHA",imageFile.getPath());
-
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    rotate = 270;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    rotate = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    rotate = 90;
-                    break;
-            }
+            Cursor cursor = context.getContentResolver().query(imageFile,
+                    new String[] { MediaStore.Images.ImageColumns.ORIENTATION }, null, null, null);
+            cursor.moveToFirst();
+            orientation = cursor.getInt(0);
+            cursor.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return rotate;
+        return orientation;
     }
 
 

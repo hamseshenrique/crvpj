@@ -5,6 +5,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha</string>
     <string name="action_sign_in">Login</string>
+    <string name="formapagamento">Escolha a forma de pagamento</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">Usuario e Senha Incorretos</string>

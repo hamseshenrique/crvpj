@@ -394,7 +394,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            Boolean retorno = Boolean.FALSE;
+            Boolean retorno = Boolean.TRUE;
             //String token = sharedPreferences.getString(mEmail,null);
 
             try{

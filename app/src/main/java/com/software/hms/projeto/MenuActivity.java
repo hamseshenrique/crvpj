@@ -1,6 +1,10 @@
 package com.software.hms.projeto;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -13,6 +17,7 @@ import android.widget.LinearLayout;
 
 import com.software.hms.projeto.async.ObterUsuarioAsync;
 import com.software.hms.projeto.async.RedeDescontoAsync;
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.componentes.Rodape;
 
 public class MenuActivity extends AppCompatActivity {
@@ -77,5 +82,34 @@ public class MenuActivity extends AppCompatActivity {
 
         Rodape rodape = new Rodape();
         rodape.onClickButtons(this);
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Context context = this;
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(this.getString(R.string.sair_app));
+        alertDialogBuilder.setNegativeButton(this.getString(R.string.nao),new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        alertDialogBuilder.setPositiveButton(this.getString(R.string.sim),
+                new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.commit();
+                        HmsStatics.setEmail("");
+                        Intent intent = new Intent(context,LoginActivity.class);
+                        context.startActivity(intent);
+                    }
+                });
+
+        alertDialogBuilder.create().show();
     }
 }
