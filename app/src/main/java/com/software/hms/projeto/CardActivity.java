@@ -27,6 +27,7 @@ import com.mercadopago.core.MercadoPago;
 import com.mercadopago.model.ApiException;
 import com.mercadopago.model.CardToken;
 import com.mercadopago.model.IdentificationType;
+import com.mercadopago.model.Payer;
 import com.mercadopago.model.Payment;
 import com.mercadopago.model.PaymentMethod;
 import com.mercadopago.model.Token;
@@ -74,13 +75,8 @@ public class CardActivity extends AppCompatActivity {
     protected Spinner mIdentificationType;
     protected RelativeLayout mSecurityCodeLayout;
     protected EditText mSecurityCode;
-    private static final String OUTRO = "Outro Valor";
     private String valor;
-    private RelativeLayout otrValor;
-    private EditText txtOtrValor;
     private Integer parcelas;
-    private Spinner cbParcelas;
-    private Spinner cbValor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +84,9 @@ public class CardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card);
 
         this.cardActivity = this;
+        valor = this.getIntent().getStringExtra("valor");
+        valor = valor.replace(".","").replace(",",".");
+        parcelas = this.getIntent().getIntExtra("parcela",0);
 
         mMercadoPago = new MercadoPago.Builder()
                 .setContext(this)
@@ -117,10 +116,7 @@ public class CardActivity extends AppCompatActivity {
         mExpiryError = (TextView) findViewById(R.id.expiryError);
         mExpiryMonth = (EditText) findViewById(R.id.expiryMonth);
         mExpiryYear = (EditText) findViewById(R.id.expiryYear);
-        otrValor = (RelativeLayout) findViewById(R.id.otrValor);
 
-        txtOtrValor = (EditText) findViewById(R.id.txtOtrValor);
-        txtOtrValor.addTextChangedListener(new HmsMask("##.###.###,##"));
 
         // Set identification type listener to control identification number keyboard
         setIdentificationNumberKeyboardBehavior();
@@ -157,51 +153,6 @@ public class CardActivity extends AppCompatActivity {
 
         // Set security code visibility
         setSecurityCodeLayout();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.adapterValor, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cbValor = (Spinner)findViewById(R.id.cbValor);
-        cbValor.setAdapter(adapter);
-        cbValor.setSelection(0);
-        cbValor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView textView = (TextView) view;
-                valor = textView.getText().toString();
-                if(valor.equals(OUTRO)){
-                    otrValor.setVisibility(View.VISIBLE);
-                    valor = "";
-                }else{
-                    otrValor.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        ArrayAdapter<CharSequence> adapterParcelas = ArrayAdapter.createFromResource(this,
-                R.array.adapterParcelas, android.R.layout.simple_spinner_item);
-        adapterParcelas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cbParcelas = (Spinner) findViewById(R.id.cbParcelas);
-        cbParcelas.setAdapter(adapterParcelas);
-        cbParcelas.setSelection(0);
-        cbParcelas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView textView = (TextView) view;
-                if(!TextUtils.isEmpty(textView.getText().toString())){
-                    parcelas = Integer.valueOf(textView.getText().toString());
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
     }
 
     protected void setContentView() {
@@ -246,17 +197,15 @@ public class CardActivity extends AppCompatActivity {
                     pagamentoDTO.setInstallments(parcelas);
                     pagamentoDTO.setPayment_method_id(mPaymentMethod.getId());
                     pagamentoDTO.setToken(tokenMercado.getId());
-                    pagamentoDTO.setTransaction_amount(new BigDecimal(valor.replace(".","").replace(",",".")).doubleValue());
+                    pagamentoDTO.setTransaction_amount(new BigDecimal(valor).doubleValue());
 
-//                    PagamentoAsync pagamentoAsync = new PagamentoAsync(cardActivity,token);
-//                    pagamentoAsync.execute(pagamentoDTO);
-//                    Payment payment = new Payment();
-//                    payment.set
-//                    new MercadoPago.StartActivityBuilder()
-//                            .setActivity(cardActivity)
-//                            .setPayment(response.body())
-//                            .setPaymentMethod(mPaymentMethod)
-//                            .startCongratsActivity();
+                    PayerDTO payerDTO = new PayerDTO();
+                    payerDTO.setEmail(HmsStatics.getEmail());
+
+                    pagamentoDTO.setPayer(payerDTO);
+
+                    PagamentoAsync pagamentoAsync = new PagamentoAsync(cardActivity,token,mPaymentMethod,valor);
+                    pagamentoAsync.execute(pagamentoDTO);
                 }
 
                 @Override
@@ -332,23 +281,6 @@ public class CardActivity extends AppCompatActivity {
                 mIdentificationNumber.setError(null);
             }
         }
-
-        if(TextUtils.isEmpty(valor)){
-            cbValor.setBackgroundColor(Color.RED);
-            result = false;
-        }else if(valor.equals(OUTRO) && TextUtils.isEmpty(txtOtrValor.getText().toString())){
-            txtOtrValor.setError("Informe um Valor");
-            txtOtrValor.requestFocus();
-            result = false;
-        }else{
-            txtOtrValor.setError(null);
-        }
-
-        if(parcelas == null){
-            cbParcelas.setBackgroundColor(Color.RED);
-            result = false;
-        }
-
         return result;
     }
 

@@ -1,14 +1,17 @@
 package com.software.hms.projeto;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.software.hms.projeto.adapter.RedeAdapter;
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.componentes.Rodape;
 import com.software.hms.projeto.dto.CategoriaDTO;
 import com.software.hms.projeto.dto.LugaresDTO;
@@ -45,6 +48,21 @@ public class RedeDescontosActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button indicar = (Button) findViewById(R.id.indicar);
+        indicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, HmsStatics.getEmail());
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Conheça o App da Cruz Vermelha para você ! ");
+                intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.indicar));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(Intent.createChooser(intent, "Quero Indicar"));
+                }
+            }
+        });
 
         Rodape rodape = new Rodape();
         rodape.onClickButtons(this);

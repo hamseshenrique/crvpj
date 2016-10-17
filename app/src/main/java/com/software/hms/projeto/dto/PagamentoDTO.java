@@ -1,15 +1,20 @@
 package com.software.hms.projeto.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by hms on 11/10/16.
  */
-public class PagamentoDTO {
+public class PagamentoDTO implements Serializable{
 
     private Double transaction_amount;
     private String token;
     private String description;
     private Integer installments;
     private String payment_method_id;
+    private PayerDTO payer;
+    private Integer status;
+    private Response response;
 
     public PagamentoDTO(){}
 
@@ -52,5 +57,29 @@ public class PagamentoDTO {
 
     public void setPayment_method_id(String payment_method_id) {
         this.payment_method_id = payment_method_id;
+    }
+
+    public PayerDTO getPayer() {
+        return payer;
+    }
+
+    public void setPayer(PayerDTO payer) {
+        this.payer = payer;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
     }
 }

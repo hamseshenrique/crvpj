@@ -3,6 +3,7 @@ package com.software.hms.projeto;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -38,6 +39,10 @@ public class CartaoAmigoActivity extends AppCompatActivity {
                 imgPer.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
         }
+
+//        TextView txtAmigo = (TextView) findViewById(R.id.txtAmigo);
+//        Typeface font = Typeface.createFromAsset(getAssets(), "book_antiqua.ttf");
+//        txtAmigo.setTypeface(font);
 
         //TextView textv = (TextView) findViewById(R.id.txtAmigo);
         //textv.setShadowLayer(1, 0, 0, Color.BLACK);

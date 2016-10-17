@@ -6,6 +6,7 @@
     <string name="prompt_password">Senha</string>
     <string name="action_sign_in">Login</string>
     <string name="formapagamento">Escolha a forma de pagamento</string>
+    <string name="valordoacao">Valor Doação</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">Usuario e Senha Incorretos</string>
@@ -30,11 +31,17 @@
     <string name="cidade">Cidade</string>
     <string name="endereco">Endereço</string>
     <string name="confirma">Confirma</string>
+    <string name="txtDialogSair">Tem certeza de que deseja sair ?</string>
     <string name="confirmaSenha">Confirme a Senha</string>
     <string name="email">Email</string>
     <string name="senhaDif">Senha diferente</string>
     <string name="ola">Olá é sua primeira vez ? - Informe seus dados</string>
     <string name="senhaEnviada">Senha enviada para seu email !</string>
+    <string name="indicar">
+        "Baixe o aplicativo da Cruz Vermelha Brasileira e conheça os projetos que estão ajudando milhares de pessoas em todo o Brasil.  Ao auxiliar a instituição, você ainda tem descontos em diversas lojas conveniadas !  "
+        \n\n Versão Android - Play Store - xxxxxxxxxxxx link
+        \n\n Versão IOS - Apple Store - xxxxxxxxxxxxxx  link
+    </string>
     <string name="info">A Cruz Vermelha é a mais importante organização humanitária do mundo e reúne 97 milhões de voluntários em todo o planeta. A instituição é neutra, imparcial e não está vinculada a qualquer Estado.\n  Seu objetivo é proteger a vida e a saúde humana, sem discriminação de nacionalidade, raça, sexo, religião, classe social ou opiniões políticas.\n
 
 Foi fundada em 1863 na Genebra, Suíça, por Jean Henry Dunant, que 38 anos mais tarde tornou-se o primeiro ganhador do prêmio Nobel da Paz.\n

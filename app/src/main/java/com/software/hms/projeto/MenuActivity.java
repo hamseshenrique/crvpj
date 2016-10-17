@@ -88,28 +88,6 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Context context = this;
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(this.getString(R.string.sair_app));
-        alertDialogBuilder.setNegativeButton(this.getString(R.string.nao),new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        alertDialogBuilder.setPositiveButton(this.getString(R.string.sim),
-                new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        SharedPreferences sharedPreferences = context.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.clear();
-                        editor.commit();
-                        HmsStatics.setEmail("");
-                        Intent intent = new Intent(context,LoginActivity.class);
-                        context.startActivity(intent);
-                    }
-                });
-
-        alertDialogBuilder.create().show();
+        HmsStatics.createDialogSair(this);
     }
 }

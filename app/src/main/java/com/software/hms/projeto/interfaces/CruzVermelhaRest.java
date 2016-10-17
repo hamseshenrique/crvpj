@@ -1,5 +1,6 @@
 package com.software.hms.projeto.interfaces;
 
+import com.mercadopago.model.Payment;
 import com.software.hms.projeto.dto.PagamentoDTO;
 import com.software.hms.projeto.dto.RetornoDTO;
 

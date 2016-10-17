@@ -90,7 +90,8 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
             android:elevation="15dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:id="@+id/unica">
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"

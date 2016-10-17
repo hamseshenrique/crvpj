@@ -45,7 +45,7 @@
                     android:layout_gravity="top">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="75dp"
                         android:orientation="vertical"
                         android:layout_marginTop="-8dp"
                         android:layout_gravity="center_horizontal"
@@ -86,11 +86,10 @@
                         android:background="@drawable/myrect"/>
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:background="@color/amigoBack"
                         android:layout_gravity="right"
-                        android:gravity="right"
-                        android:paddingBottom="10dp">
+                        android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -107,7 +106,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" COLABAORADOR"
+                            android:text=" COLABORADOR"
                             android:layout_gravity="right"
                             android:gravity="right"
                             android:textSize="14sp"
@@ -117,12 +116,7 @@
 
                     </LinearLayout>
                 </LinearLayout>
-                <android.support.design.widget.VisibilityAwareImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:src="@drawable/help"
-                    android:layout_marginTop="8dp"
-                    android:layout_gravity="right" />
+
                 <android.support.design.widget.VisibilityAwareImageButton
                     android:layout_width="100dp"
                     android:layout_height="115dp"
@@ -145,10 +139,11 @@
                     android:text="AMIGO CBV"
                     android:layout_gravity="right"
                     android:gravity="left"
-                    android:textSize="40sp"
+                    android:textSize="30sp"
                     android:layout_marginLeft="30dp"
                     android:typeface="sans"
                     android:textStyle="bold"
+                    android:textScaleX="2.5"
                     android:textColor="@android:color/holo_red_dark"
                     android:shadowColor="#555555"
                     android:shadowDx="5.0"
@@ -158,9 +153,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Validade: 08/19"
-                    android:textSize="16sp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="130dp"
+                    android:textSize="12sp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="-20dp"
                     android:typeface="sans"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"/>

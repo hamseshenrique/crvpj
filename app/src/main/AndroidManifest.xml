@@ -69,8 +69,13 @@
             android:name=".PerfilActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".CardActivity" />
-        <activity android:name=".FormaPagamentoActivity"
-                  android:label="@string/formapagamento"></activity>
+        <activity
+            android:name=".FormaPagamentoActivity"
+            android:label="@string/formapagamento" />
+        <activity
+            android:name=".ValorDoacaoActivity"
+            android:label="@string/valordoacao" />
+        <activity android:name=".AprovadoActivity"></activity>
     </application>
 
 </manifest>

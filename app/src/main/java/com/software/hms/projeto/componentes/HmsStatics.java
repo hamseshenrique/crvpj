@@ -1,33 +1,19 @@
 package com.software.hms.projeto.componentes;
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.Toast;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import com.software.hms.projeto.LoginActivity;
+import com.software.hms.projeto.R;
 
-import com.mercadopago.adapters.ErrorHandlingCallAdapter;
-import com.mercadopago.core.MercadoPago;
-import com.mercadopago.core.MerchantServer;
-import com.mercadopago.model.ApiException;
-import com.mercadopago.model.Discount;
-import com.mercadopago.model.Item;
-import com.mercadopago.model.MerchantPayment;
-import com.mercadopago.model.Payment;
-import com.mercadopago.model.PaymentMethod;
-import com.mercadopago.util.ApiUtil;
-import com.mercadopago.util.LayoutUtil;
-import com.software.hms.projeto.dto.PagamentoDTO;
-import com.software.hms.projeto.dto.RetornoDTO;
-import com.software.hms.projeto.interfaces.CruzVermelhaRest;
-import com.software.hms.projeto.security.OkHttpBasicAuth;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by root on 28/08/16.
@@ -37,7 +23,7 @@ public class HmsStatics {
     private static String email;
     private static String fotoUsu;
     public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
-    //public static final String SERVER = "http://192.168.100.13:8080";
+//    public static final String SERVER = "http://192.168.100.13:8080";
     //public static final String YOUR_TOKEN = "APP_USR-46294dde-90eb-4e0e-bd8f-437391748e9d";
     public static final String YOUR_TOKEN = "TEST-293b3f85-122c-4d38-b066-b22a21b98a0c";
 
@@ -59,29 +45,44 @@ public class HmsStatics {
         HmsStatics.fotoUsu = fotoUsu;
     }
 
+    public static Date formatDate(final String date) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        return simpleDateFormat.parse(date);
+    }
 
-    public static void createPayment(final PagamentoDTO pagamentoDTO,final String token) throws IOException {
+    /**
+     *
+     * @param context
+     */
+    public static void createDialogSair(final Activity context){
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        final LayoutInflater inflater = context.getLayoutInflater();
+        final View infView = inflater.inflate(R.layout.dialog_sair_layout,null);
+        alert.setView(infView);
 
-        /*    ErrorHandlingCallAdapter.MyCall<Payment> call = MerchantServer.createPayment(activity,
-                    "https://www.mercadopago.com", "v1/payments", payment);
+        final AlertDialog alertDialog = alert.create();
 
-            call.enqueue(new ErrorHandlingCallAdapter.MyCallback<Payment>() {
-                @Override
-                public void success(Response<Payment> response) {
+        final LinearLayout btnSair = (LinearLayout) infView.findViewById(R.id.btnSair);
+        btnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("CRUZHMSVERMELHA",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                HmsStatics.setEmail("");
+                Intent intent = new Intent(context,LoginActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        final LinearLayout btnCancelar = (LinearLayout) infView.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
 
-                    new MercadoPago.StartActivityBuilder()
-                            .setActivity(activity)
-                            .setPayment(response.body())
-                            .setPaymentMethod(paymentMethod)
-                            .startCongratsActivity();
-                }
-
-                @Override
-                public void failure(ApiException apiException) {
-
-                    LayoutUtil.showRegularLayout(activity);
-                    Toast.makeText(activity, apiException.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });*/
+        alertDialog.show();
     }
 }

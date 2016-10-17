@@ -25,12 +25,6 @@ import retrofit2.Response;
 
 public class AmigoActivity extends AppCompatActivity {
 
-    protected List<String> mSupportedPaymentTypes = new ArrayList<String>(){{
-        add("credit_card");
-        add("debit_card");
-        add("prepaid_card");
-    }};
-
     private AmigoActivity amigo;
 
     @Override
@@ -48,35 +42,25 @@ public class AmigoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    Intent intent = new Intent(amigo,FormaPagamentoActivity.class);
+                    Intent intent = new Intent(amigo,ValorDoacaoActivity.class);
                     amigo.startActivity(intent);
-/*                    new MercadoPago.StartActivityBuilder()
-                            .setShowBankDeals(true)
-                            .setActivity(amigo)
-                            .setPublicKey(HmsStatics.YOUR_TOKEN)
-                            .setSupportedPaymentTypes(mSupportedPaymentTypes)
-                            .startPaymentMethodsActivity();*/
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         });
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == MercadoPago.PAYMENT_METHODS_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(this,CardActivity.class);
-                intent.putExtra("paymentMethod",data.getStringExtra("paymentMethod"));
-                this.startActivity(intent);
+        final CardView unica = (CardView)findViewById(R.id.unica);
+        unica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(amigo,ValorDoacaoActivity.class);
+                    amigo.startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-        }else if (requestCode == MercadoPago.CONGRATS_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+        });
 
-            }
-
-        }
     }
 }

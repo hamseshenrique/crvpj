@@ -2,15 +2,27 @@ package com.software.hms.projeto.async;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
+import com.mercadopago.core.MercadoPago;
+import com.mercadopago.model.Payment;
+import com.mercadopago.model.PaymentMethod;
+import com.mercadopago.util.JsonUtil;
 import com.mercadopago.util.LayoutUtil;
+import com.software.hms.projeto.AprovadoActivity;
+import com.software.hms.projeto.CardActivity;
 import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.PagamentoDTO;
+import com.software.hms.projeto.dto.PayerDTO;
+import com.software.hms.projeto.dto.Response;
 import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.enuns.RetornoEnum;
 import com.software.hms.projeto.interfaces.CruzVermelhaRest;
 import com.software.hms.projeto.security.OkHttpBasicAuth;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -23,10 +35,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PagamentoAsync extends AsyncTask<PagamentoDTO,Void,RetornoDTO> {
     private Activity context;
     private String token;
+    private PaymentMethod paymentMethod;
+    private String valor;
 
-    public PagamentoAsync(final Activity context, final String token){
+
+    public PagamentoAsync(final Activity context, final String token,
+                          final PaymentMethod paymentMethod,final String valor){
         this.context = context;
         this.token = token;
+        this.paymentMethod = paymentMethod;
+        this.valor = valor;
     }
 
     @Override
@@ -46,7 +64,7 @@ public class PagamentoAsync extends AsyncTask<PagamentoDTO,Void,RetornoDTO> {
                 retornoDTO = retorno.body();
             }
         }catch(Exception e){
-
+            e.printStackTrace();
         }
 
         return retornoDTO;
@@ -55,5 +73,20 @@ public class PagamentoAsync extends AsyncTask<PagamentoDTO,Void,RetornoDTO> {
     @Override
     protected void onPostExecute(final RetornoDTO retornoDTO) {
         LayoutUtil.showRegularLayout(context);
+        if(RetornoEnum.SUCESSO.equals(retornoDTO.getRetornoEnum())){
+            final PagamentoDTO pagamentoDTO = retornoDTO.getPagamentoDTO();
+            final Response response = pagamentoDTO.getResponse();
+            if(response.getStatus().equals("approved")){
+                try {
+                    Intent intent = new Intent(context,AprovadoActivity.class);
+                    intent.putExtra("paymentMethod", JsonUtil.getInstance().toJson(paymentMethod));
+                    intent.putExtra("payment", pagamentoDTO);
+                    intent.putExtra("valor",valor);
+                    context.startActivity(intent);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

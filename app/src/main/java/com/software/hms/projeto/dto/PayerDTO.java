@@ -1,10 +1,12 @@
 package com.software.hms.projeto.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by hms on 11/10/16.
  */
 
-public class PayerDTO {
+public class PayerDTO implements Serializable{
 
     private String email;
 

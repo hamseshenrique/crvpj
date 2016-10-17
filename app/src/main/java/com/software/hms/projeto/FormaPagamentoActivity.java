@@ -26,6 +26,8 @@ public class FormaPagamentoActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private FormaPagamentoActivity activity;
+    private String valor;
+    private Integer parcelas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class FormaPagamentoActivity extends AppCompatActivity {
         this.mRecyclerView.setHasFixedSize(true);
         this.mRecyclerView.addItemDecoration(new DividerItemDecoration(this, 1));
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        valor = this.getIntent().getStringExtra("valor");
+        parcelas = this.getIntent().getIntExtra("parcela",0);
 
         MercadoPago mercadoPago = new MercadoPago.Builder()
         .setContext(this)
@@ -52,6 +57,8 @@ public class FormaPagamentoActivity extends AppCompatActivity {
                         PaymentMethod selectedPaymentMethod = (PaymentMethod)view.getTag();
                         Intent intent = new Intent(activity,CardActivity.class);
                         intent.putExtra("paymentMethod",JsonUtil.getInstance().toJson(selectedPaymentMethod));
+                        intent.putExtra("valor",valor);
+                        intent.putExtra("parcela",parcelas);
                         activity.startActivity(intent);
                     }
                 }));
@@ -62,5 +69,10 @@ public class FormaPagamentoActivity extends AppCompatActivity {
             public void failure(ApiException e) {
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 }

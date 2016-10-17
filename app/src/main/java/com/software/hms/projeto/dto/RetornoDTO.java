@@ -1,5 +1,6 @@
 package com.software.hms.projeto.dto;
 
+import com.mercadopago.model.Payment;
 import com.software.hms.projeto.enuns.RetornoEnum;
 
 import java.io.Serializable;
@@ -7,10 +8,7 @@ import java.util.List;
 
 
 public class RetornoDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private RetornoEnum retornoEnum;
 	private String descricao;
@@ -19,6 +17,7 @@ public class RetornoDTO implements Serializable{
 	private List<MensagemDTO> listaMensagem;
 	private DetalheMensagemDTO detalheMensagemDTO;
 	private UsuarioDTO usuarioDTO;
+	private PagamentoDTO pagamentoDTO;
 
 	public RetornoDTO(final RetornoEnum retornoEnum){
 		this.retornoEnum = retornoEnum;
@@ -98,5 +97,13 @@ public class RetornoDTO implements Serializable{
 
 	public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
 		this.usuarioDTO = usuarioDTO;
+	}
+
+	public PagamentoDTO getPagamentoDTO() {
+		return pagamentoDTO;
+	}
+
+	public void setPagamentoDTO(PagamentoDTO pagamentoDTO) {
+		this.pagamentoDTO = pagamentoDTO;
 	}
 }

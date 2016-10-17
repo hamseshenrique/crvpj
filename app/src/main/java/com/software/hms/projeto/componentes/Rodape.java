@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.software.hms.projeto.InfoActivity;
 import com.software.hms.projeto.LoginActivity;
@@ -33,28 +35,7 @@ public class Rodape {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setTitle(context.getString(R.string.sair_app));
-                alertDialogBuilder.setNegativeButton(context.getString(R.string.nao),new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                });
-                alertDialogBuilder.setPositiveButton(context.getString(R.string.sim),
-                        new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                SharedPreferences sharedPreferences = context.getSharedPreferences("CRUZHMSVERMELHA",Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.clear();
-                                editor.commit();
-                                HmsStatics.setEmail("");
-                                Intent intent = new Intent(context,LoginActivity.class);
-                                context.startActivity(intent);
-                            }
-                });
-
-                alertDialogBuilder.create().show();
+                HmsStatics.createDialogSair(context);
             }
         });
 
