@@ -75,21 +75,14 @@ public class PagamentoAsync extends AsyncTask<PagamentoDTO,Void,RetornoDTO> {
         LayoutUtil.showRegularLayout(context);
         if(RetornoEnum.SUCESSO.equals(retornoDTO.getRetornoEnum())){
             final PagamentoDTO pagamentoDTO = retornoDTO.getPagamentoDTO();
-            final Response response = pagamentoDTO.getResponse();
-            if(response.getStatus().equals("approved")){
-                try {
-                    if(paymentMethod.getName().equals("Boleto")){
-
-                    }else{
-                        Intent intent = new Intent(context,AprovadoActivity.class);
-                        intent.putExtra("paymentMethod", JsonUtil.getInstance().toJson(paymentMethod));
-                        intent.putExtra("payment", pagamentoDTO);
-                        intent.putExtra("valor",valor);
-                        context.startActivity(intent);
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
+            try {
+                Intent intent = new Intent(context,AprovadoActivity.class);
+                intent.putExtra("paymentMethod", JsonUtil.getInstance().toJson(paymentMethod));
+                intent.putExtra("payment", pagamentoDTO);
+                intent.putExtra("valor",valor);
+                context.startActivity(intent);
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
     }

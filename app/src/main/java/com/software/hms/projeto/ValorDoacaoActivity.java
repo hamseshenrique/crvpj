@@ -104,6 +104,7 @@ public class ValorDoacaoActivity extends AppCompatActivity {
                     Intent intent = new Intent(activity,FormaPagamentoActivity.class);
                     intent.putExtra("parcela",parcelas);
                     intent.putExtra("valor",valor.replace("R$","").replace(".","").replace(",","."));
+                    intent.putExtra("mensal",mensal);
                     activity.startActivity(intent);
                 }else{
                     Toast.makeText(activity,"Informe os Dados para Doação",Toast.LENGTH_LONG);
@@ -120,7 +121,7 @@ public class ValorDoacaoActivity extends AppCompatActivity {
             txtOtrValor.setError("Informe um Valor");
             txtOtrValor.requestFocus();
             result = false;
-        }else{
+        }else if(!TextUtils.isEmpty(txtOtrValor.getText().toString())){
             valor = txtOtrValor.getText().toString();
         }
 

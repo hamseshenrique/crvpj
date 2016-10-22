@@ -45,6 +45,7 @@ public class AprovadoActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(activity,MenuActivity.class);
                     activity.startActivity(intent);
+
                 }
             });
 

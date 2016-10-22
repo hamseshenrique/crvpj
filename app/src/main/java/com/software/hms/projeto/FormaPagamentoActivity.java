@@ -24,6 +24,7 @@ import com.software.hms.projeto.dto.PagamentoDTO;
 import com.software.hms.projeto.dto.PayerDTO;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Response;
@@ -34,6 +35,7 @@ public class FormaPagamentoActivity extends AppCompatActivity {
     private FormaPagamentoActivity activity;
     private String valor;
     private Integer parcelas;
+    private Boolean mensal = Boolean.TRUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class FormaPagamentoActivity extends AppCompatActivity {
 
         valor = this.getIntent().getStringExtra("valor");
         parcelas = this.getIntent().getIntExtra("parcela",0);
+        mensal = this.getIntent().getBooleanExtra("mensal",Boolean.TRUE);
 
         MercadoPago mercadoPago = new MercadoPago.Builder()
         .setContext(this)
@@ -57,35 +60,52 @@ public class FormaPagamentoActivity extends AppCompatActivity {
         mercadoPago.getPaymentMethods().enqueue(new ErrorHandlingCallAdapter.MyCallback<List<PaymentMethod>>() {
             @Override
             public void success(Response<List<PaymentMethod>> response) {
-                mRecyclerView.setAdapter(new PaymentMethodsAdapter(activity,
-                        response.body(),new View.OnClickListener() {
-                    public void onClick(View view) {
-                        PaymentMethod selectedPaymentMethod = (PaymentMethod)view.getTag();
-                        if(selectedPaymentMethod.getName().equals("Boleto")){
-                            final SharedPreferences sharedPreferences = activity.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
-                            final String token = sharedPreferences.getString(HmsStatics.getEmail(),null);
+                final List<PaymentMethod> list = response.body();
+                if(!list.isEmpty()){
+                    final List<PaymentMethod> listPay = new ArrayList<PaymentMethod>();
 
-                            final PagamentoDTO pagamentoDTO = new PagamentoDTO();
-                            pagamentoDTO.setDescription("CRUZ VERMELHA");
-                            pagamentoDTO.setPayment_method_id(selectedPaymentMethod.getId());
-                            pagamentoDTO.setTransaction_amount(new BigDecimal(valor).doubleValue());
-
-                            PayerDTO payerDTO = new PayerDTO();
-                            payerDTO.setEmail(HmsStatics.getEmail());
-
-                            pagamentoDTO.setPayer(payerDTO);
-
-                            PagamentoAsync pagamentoAsync = new PagamentoAsync(activity,token,selectedPaymentMethod,valor);
-                            pagamentoAsync.execute(pagamentoDTO);
-                        }else{
-                            Intent intent = new Intent(activity,CardActivity.class);
-                            intent.putExtra("paymentMethod",JsonUtil.getInstance().toJson(selectedPaymentMethod));
-                            intent.putExtra("valor",valor);
-                            intent.putExtra("parcela",parcelas);
-                            activity.startActivity(intent);
+                    if(mensal){
+                        for(PaymentMethod paymentMethod:list){
+                            if(!paymentMethod.getName().equals("Boleto")){
+                                listPay.add(paymentMethod);
+                            }
                         }
+                    }else{
+                        listPay.addAll(list);
                     }
-                }));
+
+                    mRecyclerView.setAdapter(new PaymentMethodsAdapter(activity,
+                            listPay,new View.OnClickListener() {
+                        public void onClick(View view) {
+                            PaymentMethod selectedPaymentMethod = (PaymentMethod)view.getTag();
+                            if(selectedPaymentMethod.getName().equals("Boleto")){
+                                LayoutUtil.showProgressLayout(activity);
+                                final SharedPreferences sharedPreferences = activity.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
+                                final String token = sharedPreferences.getString(HmsStatics.getEmail(),null);
+
+                                final PagamentoDTO pagamentoDTO = new PagamentoDTO();
+                                pagamentoDTO.setDescription("CRUZ VERMELHA");
+                                pagamentoDTO.setPayment_method_id(selectedPaymentMethod.getId());
+                                pagamentoDTO.setTransaction_amount(new BigDecimal(valor).doubleValue());
+
+                                PayerDTO payerDTO = new PayerDTO();
+                                payerDTO.setEmail(HmsStatics.getEmail());
+
+                                pagamentoDTO.setPayer(payerDTO);
+
+                                PagamentoAsync pagamentoAsync = new PagamentoAsync(activity,token,selectedPaymentMethod,valor);
+                                pagamentoAsync.execute(pagamentoDTO);
+                            }else{
+                                Intent intent = new Intent(activity,CardActivity.class);
+                                intent.putExtra("paymentMethod",JsonUtil.getInstance().toJson(selectedPaymentMethod));
+                                intent.putExtra("valor",valor);
+                                intent.putExtra("parcela",parcelas);
+                                activity.startActivity(intent);
+                            }
+                        }
+                    }));
+                }
+
                 LayoutUtil.showRegularLayout(activity);
             }
 
@@ -93,10 +113,5 @@ public class FormaPagamentoActivity extends AppCompatActivity {
             public void failure(ApiException e) {
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
     }
 }
