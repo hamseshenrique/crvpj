@@ -40,13 +40,152 @@
                     android:gravity="left"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="8dp"
                     android:textSize="13sp"
                     android:linksClickable="true"
                     android:autoLink="web"
                     android:text="@string/info"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtHum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/humildade"/>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="34dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/imparcialidade"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/neutralidade"/>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="34dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/independencia"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/voluntariado"/>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="34dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/unidade"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="13sp"
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:text="@string/universalidade"/>
+                </LinearLayout>
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="left"
+                    android:gravity="left"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="13sp"
+                    android:linksClickable="true"
+                    android:autoLink="web"
+                    android:text="@string/fimInfo"/>
+
             </LinearLayout>
 
         </ScrollView>

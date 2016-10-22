@@ -22,8 +22,8 @@ public class HmsStatics {
 
     private static String email;
     private static String fotoUsu;
-    public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
-//    public static final String SERVER = "http://192.168.100.13:8080";
+//    public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
+    public static final String SERVER = "http://192.168.100.13:8080";
     //public static final String YOUR_TOKEN = "APP_USR-46294dde-90eb-4e0e-bd8f-437391748e9d";
     public static final String YOUR_TOKEN = "TEST-293b3f85-122c-4d38-b066-b22a21b98a0c";
 

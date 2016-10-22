@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.software.hms.projeto.componentes.HmsMask;
+import com.software.hms.projeto.componentes.MonetaryMask;
 
 public class ValorDoacaoActivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class ValorDoacaoActivity extends AppCompatActivity {
     private String valor;
     private LinearLayout otrValor;
     private EditText txtOtrValor;
+    private Boolean mensal = Boolean.TRUE;
 
 
     @Override
@@ -35,10 +37,12 @@ public class ValorDoacaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valor_doacao);
 
+        mensal = this.getIntent().getBooleanExtra("mensal",Boolean.TRUE);
+
         otrValor = (LinearLayout) findViewById(R.id.otrValor);
 
         txtOtrValor = (EditText) findViewById(R.id.txtOtrValor);
-        txtOtrValor.addTextChangedListener(new HmsMask("##.###.###,##"));
+        txtOtrValor.addTextChangedListener(new MonetaryMask(txtOtrValor));
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.adapterValor, android.R.layout.simple_spinner_item);
@@ -68,8 +72,14 @@ public class ValorDoacaoActivity extends AppCompatActivity {
                 R.array.adapterParcelas, android.R.layout.simple_spinner_item);
         adapterParcelas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cbParcelas = (Spinner) findViewById(R.id.cbParcelas);
-        cbParcelas.setAdapter(adapterParcelas);
+
+        if(!mensal){
+            adapterParcelas = ArrayAdapter.createFromResource(this,
+                    R.array.adapterParcelasUnica, android.R.layout.simple_spinner_item);
+        }
+
         cbParcelas.setSelection(0);
+        cbParcelas.setAdapter(adapterParcelas);
         cbParcelas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -93,23 +103,28 @@ public class ValorDoacaoActivity extends AppCompatActivity {
                 if(validarForm()){
                     Intent intent = new Intent(activity,FormaPagamentoActivity.class);
                     intent.putExtra("parcela",parcelas);
-                    intent.putExtra("valor",valor);
+                    intent.putExtra("valor",valor.replace("R$","").replace(".","").replace(",","."));
                     activity.startActivity(intent);
                 }else{
                     Toast.makeText(activity,"Informe os Dados para Doação",Toast.LENGTH_LONG);
                 }
             }
         });
+
     }
 
     private Boolean validarForm(){
         Boolean result = Boolean.TRUE;
 
-        if(TextUtils.isEmpty(valor)){
-            result = false;
-        }else if(valor.equals(OUTRO) && TextUtils.isEmpty(txtOtrValor.getText().toString())){
+        if(valor.equals(OUTRO) && TextUtils.isEmpty(txtOtrValor.getText().toString())){
             txtOtrValor.setError("Informe um Valor");
             txtOtrValor.requestFocus();
+            result = false;
+        }else{
+            valor = txtOtrValor.getText().toString();
+        }
+
+        if(TextUtils.isEmpty(valor)){
             result = false;
         }else{
             txtOtrValor.setError(null);

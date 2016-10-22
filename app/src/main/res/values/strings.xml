@@ -42,31 +42,25 @@
         \n\n Versão Android - Play Store - xxxxxxxxxxxx link
         \n\n Versão IOS - Apple Store - xxxxxxxxxxxxxx  link
     </string>
-    <string name="info">A Cruz Vermelha é a mais importante organização humanitária do mundo e reúne 97 milhões de voluntários em todo o planeta. A instituição é neutra, imparcial e não está vinculada a qualquer Estado.\n  Seu objetivo é proteger a vida e a saúde humana, sem discriminação de nacionalidade, raça, sexo, religião, classe social ou opiniões políticas.\n
+    <string name="info">A Cruz Vermelha é a mais importante organização humanitária do mundo e reúne 97 milhões de voluntários em todo o planeta. A instituição é neutra, imparcial e não está vinculada a qualquer Estado.\n\n  Seu objetivo é proteger a vida e a saúde humana, sem discriminação de nacionalidade, raça, sexo, religião, classe social ou opiniões políticas.\n\n
 
-Foi fundada em 1863 na Genebra, Suíça, por Jean Henry Dunant, que 38 anos mais tarde tornou-se o primeiro ganhador do prêmio Nobel da Paz.\n
+Foi fundada em 1863 na Genebra, Suíça, por Jean Henry Dunant, que 38 anos mais tarde tornou-se o primeiro ganhador do prêmio Nobel da Paz.\n\n
 
-Ao todo são 190 Sociedades Nacionais de Cruz Vermelha no mundo atuando sob sete Princípios Fundamentais:\n\n
+Ao todo são 190 Sociedades Nacionais de Cruz Vermelha no mundo atuando sob sete Princípios Fundamentais:\n
+    </string>
 
-1.    Humanidade,\n\n
+    <string name="humildade">1.    Humanidade</string>
+    <string name="imparcialidade">2.    Imparcialidade</string>
+    <string name="neutralidade">3.    Neutralidade</string>
+    <string name="independencia">4.    Independência</string>
+    <string name="voluntariado">5.    Voluntariado</string>
+    <string name="unidade">6.    Unidade</string>
+    <string name="universalidade">7.    Universalidade</string>
+    <string name="fimInfo">Sua missão, exclusivamente humanitária, é proteger a vida e a dignidade das vítimas de conflitos armados e outras situações de violência, assim como prestar-lhes assistência.\n\n
 
-2.    Imparcialidade,\n\n
+Cruz Vermelha Brasileira\n\n
 
-3.    Neutralidade,\n\n
-
-4.    Independência,\n\n
-
-5.    Voluntariado\n\n
-
-6.    Unidade,\n\n
-
-7.    Universalidade\n\n
-
-Sua missão, exclusivamente humanitária, é proteger a vida e a dignidade das vítimas de conflitos armados e outras situações de violência, assim como prestar-lhes assistência.\n
-
-Cruz Vermelha Brasileira\n
-
-A Cruz Vermelha Brasileira é uma sociedade civil filantrópica, sem fins lucrativos de Utilidade Pública Federal, fundada em 1907, que através de suas filiais em todo território nacional busca proteger a vida e a integridade de todos.\n
+A Cruz Vermelha Brasileira é uma sociedade civil filantrópica, sem fins lucrativos de Utilidade Pública Federal, fundada em 1907, que através de suas filiais em todo território nacional busca proteger a vida e a integridade de todos.\n\n
 
 No Brasil atua não só com a missão de agir humanitariamente em favor de todas as vítimas de guerra, mas também trabalha pela melhoria de saúde, prevenção de doenças e organização de serviços de socorros em emergências às vítimas de calamidades, seja qual for a causa.</string>
 

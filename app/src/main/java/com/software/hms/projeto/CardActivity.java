@@ -61,8 +61,6 @@ public class CardActivity extends AppCompatActivity {
     protected String mKeyType;
     protected PaymentMethod mPaymentMethod;
     protected Boolean mRequireSecurityCode = Boolean.TRUE;
-
-    // Input controls
     protected EditText mCardHolderName;
     protected EditText mCardNumber;
     protected TextView mCVVDescriptor;
@@ -85,7 +83,7 @@ public class CardActivity extends AppCompatActivity {
 
         this.cardActivity = this;
         valor = this.getIntent().getStringExtra("valor");
-        valor = valor.replace(".","").replace(",",".");
+        valor = valor;
         parcelas = this.getIntent().getIntExtra("parcela",0);
 
         mMercadoPago = new MercadoPago.Builder()
@@ -103,7 +101,10 @@ public class CardActivity extends AppCompatActivity {
 
         mPaymentMethod = JsonUtil.getInstance().fromJson(paymentMethod, PaymentMethod.class);
 
-        // Set input controls
+        if(mPaymentMethod.getName().equals("Boleto")){
+            mRequireSecurityCode = Boolean.FALSE;
+        }
+
         mCardNumber = (EditText) findViewById(R.id.cardNumber);
         mCardHolderName = (EditText) findViewById(R.id.cardholderName);
         mIdentificationNumber = (EditText) findViewById(R.id.identificationNumber);
@@ -117,17 +118,10 @@ public class CardActivity extends AppCompatActivity {
         mExpiryMonth = (EditText) findViewById(R.id.expiryMonth);
         mExpiryYear = (EditText) findViewById(R.id.expiryYear);
 
-
-        // Set identification type listener to control identification number keyboard
         setIdentificationNumberKeyboardBehavior();
-
-        // Error text cleaning hack
         setErrorTextCleaner(mCardHolderName);
-
-        // Get identification types
         getIdentificationTypesAsync();
 
-        // Set payment method image
         if (mPaymentMethod.getId() != null) {
             ImageView pmImage = (ImageView) findViewById(R.id.pmImage);
             if (pmImage != null) {
@@ -135,7 +129,6 @@ public class CardActivity extends AppCompatActivity {
             }
         }
 
-        // Set up expiry edit texts
         mExpiryMonth.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -150,8 +143,6 @@ public class CardActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        // Set security code visibility
         setSecurityCodeLayout();
     }
 

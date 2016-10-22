@@ -1,6 +1,8 @@
 package com.software.hms.projeto;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +18,12 @@ import com.mercadopago.model.ApiException;
 import com.mercadopago.model.PaymentMethod;
 import com.mercadopago.util.JsonUtil;
 import com.mercadopago.util.LayoutUtil;
+import com.software.hms.projeto.async.PagamentoAsync;
 import com.software.hms.projeto.componentes.HmsStatics;
+import com.software.hms.projeto.dto.PagamentoDTO;
+import com.software.hms.projeto.dto.PayerDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import retrofit2.Response;
@@ -55,11 +61,29 @@ public class FormaPagamentoActivity extends AppCompatActivity {
                         response.body(),new View.OnClickListener() {
                     public void onClick(View view) {
                         PaymentMethod selectedPaymentMethod = (PaymentMethod)view.getTag();
-                        Intent intent = new Intent(activity,CardActivity.class);
-                        intent.putExtra("paymentMethod",JsonUtil.getInstance().toJson(selectedPaymentMethod));
-                        intent.putExtra("valor",valor);
-                        intent.putExtra("parcela",parcelas);
-                        activity.startActivity(intent);
+                        if(selectedPaymentMethod.getName().equals("Boleto")){
+                            final SharedPreferences sharedPreferences = activity.getSharedPreferences("CRUZHMSVERMELHA", Context.MODE_PRIVATE);
+                            final String token = sharedPreferences.getString(HmsStatics.getEmail(),null);
+
+                            final PagamentoDTO pagamentoDTO = new PagamentoDTO();
+                            pagamentoDTO.setDescription("CRUZ VERMELHA");
+                            pagamentoDTO.setPayment_method_id(selectedPaymentMethod.getId());
+                            pagamentoDTO.setTransaction_amount(new BigDecimal(valor).doubleValue());
+
+                            PayerDTO payerDTO = new PayerDTO();
+                            payerDTO.setEmail(HmsStatics.getEmail());
+
+                            pagamentoDTO.setPayer(payerDTO);
+
+                            PagamentoAsync pagamentoAsync = new PagamentoAsync(activity,token,selectedPaymentMethod,valor);
+                            pagamentoAsync.execute(pagamentoDTO);
+                        }else{
+                            Intent intent = new Intent(activity,CardActivity.class);
+                            intent.putExtra("paymentMethod",JsonUtil.getInstance().toJson(selectedPaymentMethod));
+                            intent.putExtra("valor",valor);
+                            intent.putExtra("parcela",parcelas);
+                            activity.startActivity(intent);
+                        }
                     }
                 }));
                 LayoutUtil.showRegularLayout(activity);

@@ -43,6 +43,7 @@ public class AmigoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try{
                     Intent intent = new Intent(amigo,ValorDoacaoActivity.class);
+                    intent.putExtra("mensal",Boolean.TRUE);
                     amigo.startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -55,6 +56,7 @@ public class AmigoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try{
                     Intent intent = new Intent(amigo,ValorDoacaoActivity.class);
+                    intent.putExtra("mensal",Boolean.FALSE);
                     amigo.startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
