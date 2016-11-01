@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.software.hms.projeto.LoginActivity;
 import com.software.hms.projeto.R;
+import com.software.hms.projeto.dto.MensagemDTO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,10 +23,12 @@ public class HmsStatics {
 
     private static String email;
     private static String fotoUsu;
-//    public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
-    public static final String SERVER = "http://192.168.100.13:8080";
+    public static final String SERVER = "http://ec2-54-244-216-207.us-west-2.compute.amazonaws.com:8080";
+//    public static final String SERVER = "http://192.168.100.13:8080";
     //public static final String YOUR_TOKEN = "APP_USR-46294dde-90eb-4e0e-bd8f-437391748e9d";
     public static final String YOUR_TOKEN = "TEST-293b3f85-122c-4d38-b066-b22a21b98a0c";
+
+    private static MensagemDTO mensagemDTO;
 
     public HmsStatics(){}
 
@@ -84,5 +87,13 @@ public class HmsStatics {
         });
 
         alertDialog.show();
+    }
+
+    public static MensagemDTO getMensagemDTO() {
+        return mensagemDTO;
+    }
+
+    public static void setMensagemDTO(MensagemDTO mensagemDTO) {
+        HmsStatics.mensagemDTO = mensagemDTO;
     }
 }

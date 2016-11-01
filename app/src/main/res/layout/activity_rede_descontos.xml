@@ -70,7 +70,7 @@
             android:id="@+id/indicar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quero Indicar"
+            android:text=" Quero indicar um Parceiro "
             android:background="@color/colorPrimary"
             android:elevation="3dp"
             android:textColor="@color/colorDescMenu"

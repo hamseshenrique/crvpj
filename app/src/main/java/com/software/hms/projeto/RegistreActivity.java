@@ -20,8 +20,10 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.software.hms.projeto.async.NotificacaoAsync;
 import com.software.hms.projeto.async.RegistrarAsync;
 import com.software.hms.projeto.componentes.HmsMask;
+import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.UsuarioDTO;
 
 import java.io.File;
@@ -135,7 +137,6 @@ public class RegistreActivity extends AppCompatActivity {
 
                     final RegistrarAsync registrarAsync = new RegistrarAsync(context, editor);
                     registrarAsync.execute(usuarioDTO);
-
                 }
             }
         });

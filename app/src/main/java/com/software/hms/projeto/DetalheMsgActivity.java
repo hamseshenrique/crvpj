@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -32,10 +33,12 @@ public class DetalheMsgActivity extends AppCompatActivity {
             TextView txtDesc = (TextView)findViewById(R.id.txtDesc);
             txtDesc.setText(detalheMensagemDTO.getDescricao());
 
-            byte[] bty = Base64.decode(detalheMensagemDTO.getImg(),Base64.URL_SAFE);
-
-            AppCompatImageView imageView = (AppCompatImageView)findViewById(R.id.imgMsg);
-            imageView.setImageBitmap(BitmapFactory.decodeByteArray(bty, 0, bty.length));
+            if(!TextUtils.isEmpty(detalheMensagemDTO.getImg())){
+                byte[] bty = Base64.decode(detalheMensagemDTO.getImg(),Base64.URL_SAFE);
+                AppCompatImageView imageView = (AppCompatImageView)findViewById(R.id.imgMsg);
+                imageView.setImageBitmap(BitmapFactory.decodeByteArray(bty, 0, bty.length));
+                imageView.setVisibility(View.VISIBLE);
+            }
         }
 
         Rodape rodape = new Rodape();

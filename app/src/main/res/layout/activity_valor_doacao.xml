@@ -94,6 +94,16 @@
             android:id="@+id/continuar"
             android:background="@color/colorPrimary"
             style="@style/mpsdk_button_normal"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Area Segura"
+            android:gravity="center"
+            style="@style/mpsdk_form_input"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"/>
+
     </LinearLayout>
 
 </RelativeLayout>

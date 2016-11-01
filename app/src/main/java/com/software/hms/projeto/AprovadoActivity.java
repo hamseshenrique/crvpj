@@ -15,8 +15,11 @@ import com.mercadopago.model.PaymentMethod;
 import com.mercadopago.util.CurrenciesUtil;
 import com.mercadopago.util.JsonUtil;
 import com.mercadopago.util.MercadoPagoUtil;
+import com.software.hms.projeto.async.NotificacaoAsync;
 import com.software.hms.projeto.componentes.HmsStatics;
 import com.software.hms.projeto.dto.PagamentoDTO;
+import com.software.hms.projeto.dto.RetornoDTO;
+import com.software.hms.projeto.enuns.RetornoEnum;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -46,6 +49,8 @@ public class AprovadoActivity extends AppCompatActivity {
                     Intent intent = new Intent(activity,MenuActivity.class);
                     activity.startActivity(intent);
 
+                    NotificacaoAsync notificacaoAsync = new NotificacaoAsync(activity);
+                    notificacaoAsync.execute(HmsStatics.getMensagemDTO());
                 }
             });
 
@@ -101,7 +106,9 @@ public class AprovadoActivity extends AppCompatActivity {
             if(pagamentoDTO.getResponse().getStatus().equals("approved")) {
                 descriptionText.setText(this.getString(com.mercadopago.R.string.mpsdk_approved_message));
             } else if(pagamentoDTO.getResponse().getStatus().equals("pending")) {
-                descriptionText.setText(this.getString(com.mercadopago.R.string.mpsdk_pending_ticket_message));
+                //descriptionText.setText(this.getString(com.mercadopago.R.string.mpsdk_pending_ticket_message));
+                descriptionText.setText("Você recebera o boleto através do e-mail cadastrado.\n" +
+                        "                   Imprima-o e realize o pagamento. Será aprovado no prazo de 1 a 3 dias úteis");
             } else if(pagamentoDTO.getResponse().getStatus().equals("in_process")) {
                 descriptionText.setText(this.getString(com.mercadopago.R.string.mpsdk_in_process_message));
             } else if(pagamentoDTO.getResponse().getStatus().equals("rejected")) {

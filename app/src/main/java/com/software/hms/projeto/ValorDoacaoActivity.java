@@ -54,12 +54,14 @@ public class ValorDoacaoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView textView = (TextView) view;
-                valor = textView.getText().toString();
-                if(valor.equals(OUTRO)){
-                    otrValor.setVisibility(View.VISIBLE);
-                    valor = "";
-                }else{
-                    otrValor.setVisibility(View.INVISIBLE);
+                if(textView != null){
+                    valor = textView.getText().toString();
+                    if(valor.equals(OUTRO)){
+                        otrValor.setVisibility(View.VISIBLE);
+                        valor = "";
+                    }else{
+                        otrValor.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 
@@ -84,7 +86,7 @@ public class ValorDoacaoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView textView = (TextView) view;
-                if(!TextUtils.isEmpty(textView.getText().toString())){
+                if(textView != null && !TextUtils.isEmpty(textView.getText().toString())){
                     parcelas = Integer.valueOf(textView.getText().toString());
                 }
             }

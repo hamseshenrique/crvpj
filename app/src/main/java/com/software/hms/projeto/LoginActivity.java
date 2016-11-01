@@ -38,7 +38,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.software.hms.projeto.async.EsqueceuSenhaAsync;
+import com.software.hms.projeto.async.NotificacaoAsync;
 import com.software.hms.projeto.componentes.HmsStatics;
+import com.software.hms.projeto.dto.MensagemDTO;
 import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.dto.UsuarioDTO;
 import com.software.hms.projeto.enuns.RetornoEnum;

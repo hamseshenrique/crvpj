@@ -127,6 +127,11 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
             });
 
             alertDialogBuilder.create().show();
+
+            HmsStatics.setMensagemDTO(retornoDTO.getMensagemDTO());
+            NotificacaoAsync notificacaoAsync = new NotificacaoAsync(context);
+            notificacaoAsync.execute(HmsStatics.getMensagemDTO());
+
         }else if(retornoDTO.getRetornoEnum().equals(RetornoEnum.USUARIO_NAO_CADASTRADO)){
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setTitle(retornoDTO.getDescricao());

@@ -2,6 +2,7 @@ package com.software.hms.projeto;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Contacts;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,13 +54,27 @@ public class RedeDescontosActivity extends AppCompatActivity {
         indicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:"));
-                intent.putExtra(Intent.EXTRA_EMAIL, HmsStatics.getEmail());
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Conheça o App da Cruz Vermelha para você ! ");
-                intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.indicar));
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","contato@amigocvb.com.br", null));
+                intent.putExtra(Intent.EXTRA_EMAIL,HmsStatics.getEmail());
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Quero indicar um parceiro para CVB");
+
+                StringBuilder str = new StringBuilder();
+                str.append("Envie os dados do estabelecimento para que possamos entrar em contato!");
+                str.append("\n");
+                str.append("\n");
+                str.append("Nome:");
+                str.append("\n");
+                str.append("Tel:");
+                str.append("\n");
+                str.append("Email:");
+                str.append("\n");
+
+                str.append("Endereço:");
+
+                intent.putExtra(Intent.EXTRA_TEXT,str.toString());
                 if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(Intent.createChooser(intent, "Quero Indicar"));
+                    startActivity(Intent.createChooser(intent, "Quero Indicar um Parceiro"));
                 }
             }
         });

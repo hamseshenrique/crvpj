@@ -80,6 +80,9 @@ public class PagamentoAsync extends AsyncTask<PagamentoDTO,Void,RetornoDTO> {
                 intent.putExtra("paymentMethod", JsonUtil.getInstance().toJson(paymentMethod));
                 intent.putExtra("payment", pagamentoDTO);
                 intent.putExtra("valor",valor);
+
+                HmsStatics.setMensagemDTO(retornoDTO.getMensagemDTO());
+
                 context.startActivity(intent);
             }catch(Exception e){
                 e.printStackTrace();

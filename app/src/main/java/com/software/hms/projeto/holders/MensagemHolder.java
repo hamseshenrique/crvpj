@@ -15,7 +15,6 @@ public class MensagemHolder extends RecyclerView.ViewHolder{
 
     public TextView textData;
     public TextView textDesc;
-    private View itemView;
 
 
     public MensagemHolder(View itemView){
@@ -23,7 +22,6 @@ public class MensagemHolder extends RecyclerView.ViewHolder{
 
         textData = (TextView)itemView.findViewById(R.id.txtData);
         textDesc = (TextView)itemView.findViewById(R.id.txtDesc);
-        this.itemView = itemView;
     }
 
     public void onClick(final MensagemDTO mensagemDTO){

@@ -272,9 +272,9 @@ public class PerfilActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try{
                 if(data == null || data.getData() == null){
-                    setImage(Uri.fromFile(getTempFile(context)));
+                    setImage(Uri.fromFile(getTempFile(context)),Boolean.TRUE);
                 }else{
-                    setImage(data.getData());
+                    setImage(data.getData(),Boolean.FALSE);
                 }
             }catch(Exception ex){
                 ex.printStackTrace();
@@ -282,7 +282,7 @@ public class PerfilActivity extends AppCompatActivity {
         }
     }
 
-    private void setImage(final Uri uri) throws IOException {
+    private void setImage(final Uri uri,Boolean camera) throws IOException {
 
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         ParcelFileDescriptor parcelFileDescriptor =
@@ -298,8 +298,13 @@ public class PerfilActivity extends AppCompatActivity {
         options.inJustDecodeBounds = false;
 
         bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor,null,options);
+
         Matrix matrix = new Matrix();
-        matrix.postRotate(getRotationFromCamera(uri));
+        if(!camera){
+            matrix.postRotate(getRotationFromCamera(uri));
+        }else{
+            matrix.postRotate(270);
+        }
         Bitmap bmOut = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
         parcelFileDescriptor.close();

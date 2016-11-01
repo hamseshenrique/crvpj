@@ -30,7 +30,7 @@
             <LinearLayout
                 android:id="@+id/lnSejaAmigo"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="59dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginTop="195dp"
@@ -44,8 +44,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:text="SEJA UM AMIGO"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="48dp"
                         android:gravity="center_vertical"
                         />
@@ -54,7 +54,7 @@
             <LinearLayout
                 android:id="@+id/lnCartaoAmigo"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="59dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginTop="156dp"
@@ -68,8 +68,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:text="CARTÃO AMIGO"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="48dp"
                         android:gravity="center_vertical"
                         />
@@ -78,7 +78,7 @@
             <LinearLayout
                 android:id="@+id/lnRede"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="59dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginTop="117dp"
@@ -92,8 +92,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:text="REDE DE DESCONTOS"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="48dp"
                         android:gravity="center_vertical"
                         />
@@ -102,7 +102,7 @@
             <LinearLayout
                 android:id="@+id/lnProjetos"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="59dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginTop="78dp"
@@ -116,8 +116,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:text="PROJETOS"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="48dp"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
@@ -125,11 +125,11 @@
             <LinearLayout
                 android:id="@+id/lnMensagens"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="59dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginTop="39dp"
-                android:layout_marginRight="80dp">
+                android:layout_marginRight="70dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -139,8 +139,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:text="MENSAGENS"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="48dp"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
@@ -148,7 +148,7 @@
             <LinearLayout
                 android:id="@+id/lnNoticias"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="59dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="110dp">
@@ -161,8 +161,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:text="NOTÍCIAS"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="48dp"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
@@ -191,7 +191,6 @@
                 android:layout_height="90dp"
                 android:src="@drawable/icon_projeto"
                 android:layout_gravity="right"
-                android:layout_marginRight="4dp"
                 android:layout_marginTop="78dp"
                 android:scaleType="fitStart"/>
             <android.support.design.widget.VisibilityAwareImageButton
@@ -201,7 +200,7 @@
                 android:src="@drawable/icon_rede"
                 android:layout_gravity="right"
                 android:layout_marginTop="109dp"
-                android:layout_marginRight="54dp"
+                android:layout_marginRight="33dp"
                 android:scaleType="fitStart"/>
             <android.support.design.widget.VisibilityAwareImageButton
                 android:id="@+id/imgCartao"
@@ -209,8 +208,8 @@
                 android:layout_height="70dp"
                 android:src="@drawable/icon_cartao"
                 android:layout_gravity="right"
-                android:layout_marginRight="2dp"
                 android:layout_marginTop="150dp"
+                android:layout_marginRight="-5dp"
                 android:scaleType="fitStart"/>
             <android.support.design.widget.VisibilityAwareImageButton
                 android:id="@+id/imgSejaAmigo"
