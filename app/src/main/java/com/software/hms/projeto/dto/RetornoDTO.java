@@ -19,6 +19,7 @@ public class RetornoDTO implements Serializable{
 	private UsuarioDTO usuarioDTO;
 	private PagamentoDTO pagamentoDTO;
 	private MensagemDTO mensagemDTO;
+	private List<EstadoDTO> listEstado;
 
 	public RetornoDTO(final RetornoEnum retornoEnum){
 		this.retornoEnum = retornoEnum;
@@ -114,5 +115,13 @@ public class RetornoDTO implements Serializable{
 
 	public void setMensagemDTO(MensagemDTO mensagemDTO) {
 		this.mensagemDTO = mensagemDTO;
+	}
+
+	public List<EstadoDTO> getListEstado() {
+		return listEstado;
+	}
+
+	public void setListEstado(List<EstadoDTO> listEstado) {
+		this.listEstado = listEstado;
 	}
 }

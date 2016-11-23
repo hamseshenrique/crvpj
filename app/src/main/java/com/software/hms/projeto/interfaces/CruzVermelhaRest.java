@@ -30,4 +30,7 @@ public interface CruzVermelhaRest {
     @POST("/cruzvermelha/api/pagamento/checkout")
     Call<RetornoDTO> checkout(@Body PagamentoDTO pagamentoDTO);
 
+    @GET("/cruzvermelha/api/estado/obterMunicipios/{uf}")
+    Call<RetornoDTO> obterMunicipios(@Path("uf") String uf);
+
 }

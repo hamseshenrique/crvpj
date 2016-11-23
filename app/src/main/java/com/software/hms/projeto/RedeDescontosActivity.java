@@ -55,7 +55,9 @@ public class RedeDescontosActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto","contato@amigocvb.com.br", null));
+                        "mailto","leonardo@acaocruzvermelha.com.br", null));
+//                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+//                        "mailto","contato@amigocvb.com.br", null));
                 intent.putExtra(Intent.EXTRA_EMAIL,HmsStatics.getEmail());
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Quero indicar um parceiro para CVB");
 

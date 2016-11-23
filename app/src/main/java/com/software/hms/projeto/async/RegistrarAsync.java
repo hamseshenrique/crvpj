@@ -81,7 +81,7 @@ public class RegistrarAsync extends AsyncTask<UsuarioDTO,Void,RetornoDTO>{
 
                         return chain.proceed(request);
                     }
-                }).readTimeout(80000, TimeUnit.MILLISECONDS).build();
+                }).readTimeout(100000, TimeUnit.MILLISECONDS).build();
 
 
                 final Retrofit retrofit = new Retrofit.Builder().baseUrl(

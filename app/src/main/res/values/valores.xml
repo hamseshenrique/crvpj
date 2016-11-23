@@ -5,6 +5,9 @@
         <item>Masculino</item>
         <item>Feminino</item>
     </string-array>
+    <string-array name="adapterCidade">
+        <item>Cidade</item>
+    </string-array>
     <string-array name="adapterValor">
         <item></item>
         <item>30,00</item>
@@ -30,7 +33,7 @@
     </string-array>
 
     <string-array name="adapterEstado">
-        <item>Estado</item>
+        <item>UF</item>
         <item>AC</item>
         <item>AL</item>
         <item>AP</item>

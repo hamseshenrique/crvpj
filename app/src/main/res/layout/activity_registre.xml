@@ -137,7 +137,7 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.TextInputLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="match_parent">
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="wrap_content"
@@ -157,13 +157,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <Spinner
                         android:id="@+id/cidade"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/cidade"
-                        android:maxLines="1"
-                        android:singleLine="true"
                         android:imeOptions="actionNext"/>
 
                 </android.support.design.widget.TextInputLayout>

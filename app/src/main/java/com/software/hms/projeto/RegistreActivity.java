@@ -20,24 +20,30 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.software.hms.projeto.async.EstadoAsync;
 import com.software.hms.projeto.async.NotificacaoAsync;
 import com.software.hms.projeto.async.RegistrarAsync;
 import com.software.hms.projeto.componentes.HmsMask;
 import com.software.hms.projeto.componentes.HmsStatics;
+import com.software.hms.projeto.dto.EstadoDTO;
+import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.dto.UsuarioDTO;
+import com.software.hms.projeto.interfaces.ObserverInterface;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class RegistreActivity extends AppCompatActivity {
+public class RegistreActivity extends AppCompatActivity implements ObserverInterface{
 
     private AutoCompleteTextView autoData;
     private AutoCompleteTextView autoCpf;
     private AutoCompleteTextView nome;
     private Spinner estado;
     private Spinner sexo;
-    private AutoCompleteTextView cidade;
+    private Spinner cidade;
     private AutoCompleteTextView complemento;
     private EditText password;
     private Context context;
@@ -45,17 +51,21 @@ public class RegistreActivity extends AppCompatActivity {
     private EditText confirmaPassword;
     private String valorEstado;
     private String valorSexo;
+    private String valorCidade;
     private int REQUEST_IMAGE_CAPTURE = 1;
 
-    private static final String VALOR_DEF_ESTADO = "Estado";
+    private static final String VALOR_DEF_ESTADO = "UF";
     private static final String VALOR_DEF_SEXO = "Sexo";
+    private static final String VALOR_DEF_CIDADE = "Cidade";
     private SharedPreferences.Editor editor;
+    private ObserverInterface observerInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registre);
         this.context = this;
+        this.observerInterface = this;
 
         nome = (AutoCompleteTextView) findViewById(R.id.nome);
 
@@ -77,6 +87,10 @@ public class RegistreActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView textView = (TextView) view;
                 valorEstado = textView.getText().toString();
+                if(!VALOR_DEF_ESTADO.equals(valorEstado)){
+                    EstadoAsync estadoAsync = new EstadoAsync(context,observerInterface);
+                    estadoAsync.execute(valorEstado);
+                }
             }
 
             @Override
@@ -102,7 +116,27 @@ public class RegistreActivity extends AppCompatActivity {
             }
         });
 
-        cidade = (AutoCompleteTextView) findViewById(R.id.cidade);
+        cidade = (Spinner) findViewById(R.id.cidade);
+        adapter = ArrayAdapter.createFromResource(this,
+                R.array.adapterCidade, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cidade.setAdapter(adapter);
+        cidade.setSelection(0);
+
+        cidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView textView = (TextView) view;
+                if(textView != null && textView.getText() != null){
+                    valorCidade = textView.getText().toString();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         complemento = (AutoCompleteTextView) findViewById(R.id.completeEndereco);
         password = (EditText) findViewById(R.id.password);
         confirmaPassword = (EditText) findViewById(R.id.confirmaPassword);
@@ -131,7 +165,9 @@ public class RegistreActivity extends AppCompatActivity {
                     if (!VALOR_DEF_SEXO.equals(valorSexo)) {
                         usuarioDTO.setSexo(valorSexo);
                     }
-                    usuarioDTO.setCidade(cidade.getText().toString());
+                    if (!VALOR_DEF_CIDADE.equals(valorCidade)) {
+                        usuarioDTO.setCidade(valorCidade);
+                    }
                     usuarioDTO.setComplemento(complemento.getText().toString());
                     usuarioDTO.setSenha(password.getText().toString());
 
@@ -165,5 +201,23 @@ public class RegistreActivity extends AppCompatActivity {
         }
 
         return isValido;
+    }
+
+    @Override
+    public void atualizar(RetornoDTO retornoDTO) {
+        if(retornoDTO.getListEstado() != null &&
+                !retornoDTO.getListEstado().isEmpty()){
+
+            final ArrayAdapter<String> municipios = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
+
+            for (EstadoDTO estadoDTO:retornoDTO.getListEstado()) {
+                municipios.add(estadoDTO.getMunicipio());
+            }
+            municipios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            cidade.setAdapter(municipios);
+            municipios.notifyDataSetChanged();
+            cidade.setSelection(0);
+
+        }
     }
 }

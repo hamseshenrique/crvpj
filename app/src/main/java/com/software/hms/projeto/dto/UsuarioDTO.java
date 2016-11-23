@@ -11,6 +11,8 @@ public class UsuarioDTO implements Serializable{
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	private String codigo;
+
 	/** The login. */
 	private String login;
 
@@ -49,6 +51,8 @@ public class UsuarioDTO implements Serializable{
 
 	/** The foto. */
 	private String foto;
+
+	private String validade;
 
 
 	/**
@@ -276,5 +280,22 @@ public class UsuarioDTO implements Serializable{
 	 */
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getValidade() {
+		return validade;
+	}
+
+	public void setValidade(String validade) {
+		this.validade = validade;
 	}
 }

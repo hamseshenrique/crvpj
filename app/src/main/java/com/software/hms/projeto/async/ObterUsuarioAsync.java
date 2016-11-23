@@ -81,14 +81,17 @@ public class ObterUsuarioAsync extends AsyncTask<Void,Void,RetornoDTO> {
                 retornoDTO.getUsuarioDTO().setFoto(null);
                 Intent intent = null;
 
+                Bundle bundle = new Bundle();
+
                 if(isPerfil){
                     intent = new Intent(context,PerfilActivity.class);
+                    bundle.putSerializable("retornoDto",retornoDTO);
                 }else{
                     intent = new Intent(context,CartaoAmigoActivity.class);
+                    bundle.putSerializable("usuario",retornoDTO.getUsuarioDTO());
                 }
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("usuario",retornoDTO.getUsuarioDTO());
+
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }else{

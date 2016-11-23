@@ -30,7 +30,16 @@ public class CartaoAmigoActivity extends AppCompatActivity {
             UsuarioDTO usuarioDTO = (UsuarioDTO) extras.get("usuario");
             ImageView imgPer = (ImageView) findViewById(R.id.imgPer);
             TextView textView = (TextView) findViewById(R.id.nome);
+            TextView txtCodigo = (TextView) findViewById(R.id.codigo);
+            TextView txtValidade = (TextView) findViewById(R.id.txtValidade);
+
+            txtCodigo.setText(usuarioDTO.getCodigo());
             textView.setText(usuarioDTO.getNome());
+
+            if(!TextUtils.isEmpty(usuarioDTO.getValidade())){
+                txtValidade.setText(usuarioDTO.getValidade());
+            }
+
 
             if(!TextUtils.isEmpty(HmsStatics.getFotoUsu())){
                 byte[] bty = Base64.decode(HmsStatics.getFotoUsu(),Base64.URL_SAFE);
@@ -39,14 +48,5 @@ public class CartaoAmigoActivity extends AppCompatActivity {
                 imgPer.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
         }
-
-//        TextView txtAmigo = (TextView) findViewById(R.id.txtAmigo);
-//        Typeface font = Typeface.createFromAsset(getAssets(), "book_antiqua.ttf");
-//        txtAmigo.setTypeface(font);
-
-        //TextView textv = (TextView) findViewById(R.id.txtAmigo);
-        //textv.setShadowLayer(1, 0, 0, Color.BLACK);
-
-
     }
 }

@@ -32,10 +32,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.software.hms.projeto.async.AlterarUsuario;
+import com.software.hms.projeto.async.EstadoAsync;
 import com.software.hms.projeto.async.RegistrarAsync;
 import com.software.hms.projeto.componentes.HmsMask;
 import com.software.hms.projeto.componentes.HmsStatics;
+import com.software.hms.projeto.dto.EstadoDTO;
+import com.software.hms.projeto.dto.RetornoDTO;
 import com.software.hms.projeto.dto.UsuarioDTO;
+import com.software.hms.projeto.interfaces.ObserverInterface;
 import com.software.hms.projeto.security.TokenService;
 
 import java.io.ByteArrayOutputStream;
@@ -48,7 +52,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PerfilActivity extends AppCompatActivity {
+public class PerfilActivity extends AppCompatActivity implements ObserverInterface {
 
     private static final String TEMP_IMAGE_NAME = "tempImage";
     private AutoCompleteTextView autoData;
@@ -56,20 +60,24 @@ public class PerfilActivity extends AppCompatActivity {
     private AutoCompleteTextView nome;
     private Spinner estado;
     private Spinner sexo;
-    private AutoCompleteTextView cidade;
+    private Spinner cidade;
     private AutoCompleteTextView complemento;
     private EditText password;
     private Context context;
+    private ObserverInterface observerInterface;
     private AutoCompleteTextView email;
     private EditText confirmaPassword;
     private String valorEstado;
     private String valorSexo;
+    private String valorCidade;
     private ImageView imgPer;
     private int REQUEST_IMAGE_CAPTURE = 1;
-    private static final String VALOR_DEF_ESTADO = "Estado";
+    private static final String VALOR_DEF_ESTADO = "UF";
     private static final String VALOR_DEF_SEXO = "Sexo";
+    private static final String VALOR_DEF_CIDADE = "CIDADE";
     private String senha;
     private Bitmap bitmapImg;
+    private Boolean isTela = Boolean.FALSE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,7 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         context = this;
+        observerInterface = this;
 
         Bundle extras = getIntent().getExtras();
         nome = (AutoCompleteTextView) findViewById(R.id.nome);
@@ -89,23 +98,6 @@ public class PerfilActivity extends AppCompatActivity {
 
         estado = (Spinner) findViewById(R.id.estado);
         imgPer = (ImageView) findViewById(R.id.imgPer);
-
-        ArrayAdapter<CharSequence> adapterEstado = ArrayAdapter.createFromResource(this,
-                R.array.adapterEstado,android.R.layout.simple_spinner_item);
-        adapterEstado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        estado.setAdapter(adapterEstado);
-        estado.setSelection(0);
-        estado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView textView = (TextView) view;
-                valorEstado = textView.getText().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
 
         sexo = (Spinner) findViewById(R.id.sexo);
         ArrayAdapter<CharSequence> adapterSexo = ArrayAdapter.createFromResource(this,
@@ -125,19 +117,70 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
-        cidade = (AutoCompleteTextView) findViewById(R.id.cidade);
         complemento = (AutoCompleteTextView) findViewById(R.id.completeEndereco);
         password = (EditText) findViewById(R.id.password);
         confirmaPassword = (EditText) findViewById(R.id.confirmaPassword);
         email = (AutoCompleteTextView) findViewById(R.id.email);
 
         if(extras != null){
-            UsuarioDTO usuarioDTO = (UsuarioDTO) extras.get("usuario");
+            RetornoDTO retornoDTO = (RetornoDTO) extras.get("retornoDto");
+            UsuarioDTO usuarioDTO = retornoDTO.getUsuarioDTO();
+
+            cidade = (Spinner) findViewById(R.id.cidade);
+            ArrayAdapter<CharSequence> adapterCidade = new ArrayAdapter<CharSequence>(
+                    context,android.R.layout.simple_spinner_item);
+            if(retornoDTO.getListEstado() != null
+                    && !retornoDTO.getListEstado().isEmpty()){
+                for (EstadoDTO estadoDTO: retornoDTO.getListEstado()) {
+                    adapterCidade.add(estadoDTO.getMunicipio());
+                }
+            }
+            ArrayAdapter<CharSequence> adapterEstado = ArrayAdapter.createFromResource(this,
+                    R.array.adapterEstado,android.R.layout.simple_spinner_item);
+            adapterEstado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            estado.setAdapter(adapterEstado);
+            estado.setSelection(0);
+            estado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    TextView textView = (TextView) view;
+                    valorEstado = textView.getText().toString();
+                    if(valorEstado != null && !VALOR_DEF_ESTADO.equals(valorEstado)
+                            && isTela){
+                        EstadoAsync estadoAsync = new EstadoAsync(context,observerInterface);
+                        estadoAsync.execute(valorEstado);
+                    }
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+
+            adapterCidade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            cidade.setAdapter(adapterCidade);
+            cidade.setSelection(0);
+            cidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    TextView textView = (TextView) view;
+                    if(textView != null
+                            && textView.getText().toString() != null){
+                        valorCidade = textView.getText().toString();
+                    }
+                    isTela = Boolean.TRUE;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
 
             nome.setText(usuarioDTO.getNome());
             autoCpf.setText(usuarioDTO.getCpf());
             autoData.setText(usuarioDTO.getDateNascimento());
-            cidade.setText(usuarioDTO.getCidade());
+            if(!TextUtils.isEmpty(usuarioDTO.getCidade())){
+                cidade.setSelection(adapterCidade.getPosition(usuarioDTO.getCidade()));
+            }
             complemento.setText(usuarioDTO.getComplemento());
             password.setText(usuarioDTO.getSenha());
             email.setText(usuarioDTO.getEmail());
@@ -163,22 +206,26 @@ public class PerfilActivity extends AppCompatActivity {
         tirarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Intent> intentList = new ArrayList<Intent>();
-                final Context context = view.getContext();
+                try{
+                    List<Intent> intentList = new ArrayList<Intent>();
+                    final Context context = view.getContext();
 
-                Intent pickIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                takePhotoIntent.putExtra("return-data", true);
-                takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempFile(context)));
-                intentList = addIntentsToList(context, intentList, pickIntent);
-                intentList = addIntentsToList(context, intentList, takePhotoIntent);
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    takePhotoIntent.putExtra("return-data", true);
+                    takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempFile(context)));
+                    intentList = addIntentsToList(context, intentList, pickIntent);
+                    intentList = addIntentsToList(context, intentList, takePhotoIntent);
 
-                if (intentList.size() > 0) {
-                    Intent chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1),
-                            "Foto do Perfil");
-                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
-                    startActivityForResult(chooserIntent,REQUEST_IMAGE_CAPTURE);
+                    if (intentList.size() > 0) {
+                        Intent chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1),
+                                "Foto do Perfil");
+                        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
+                        startActivityForResult(chooserIntent,REQUEST_IMAGE_CAPTURE);
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         });
@@ -200,7 +247,10 @@ public class PerfilActivity extends AppCompatActivity {
                     if (!VALOR_DEF_SEXO.equals(valorSexo)) {
                         usuarioDTO.setSexo(valorSexo);
                     }
-                    usuarioDTO.setCidade(cidade.getText().toString());
+                    if(!VALOR_DEF_CIDADE.equals(valorCidade)){
+                        usuarioDTO.setCidade(valorCidade);
+                    }
+
                     usuarioDTO.setComplemento(complemento.getText().toString());
 
                     if(!senha.equals(password.getText().toString())){
@@ -300,10 +350,10 @@ public class PerfilActivity extends AppCompatActivity {
         bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor,null,options);
 
         Matrix matrix = new Matrix();
-        if(!camera){
-            matrix.postRotate(getRotationFromCamera(uri));
+        if(camera){
+            matrix.postRotate(getRotationFromCamera(context,uri));
         }else{
-            matrix.postRotate(270);
+            matrix.postRotate(getRotationFromGallery(context,uri));
         }
         Bitmap bmOut = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
@@ -332,7 +382,53 @@ public class PerfilActivity extends AppCompatActivity {
         return inSampleSize;
     }
 
-    private int getRotationFromCamera(Uri imageFile) {
+    private int getRotationFromCamera(Context context, Uri imageFile) {
+        int rotate = 0;
+        try {
+
+            context.getContentResolver().notifyChange(imageFile, null);
+            ExifInterface exif = new ExifInterface(imageFile.getPath());
+            int orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rotate;
+    }
+
+    public int getRotationFromGallery(Context context, Uri imageUri) {
+        int result = 0;
+        String[] columns = {MediaStore.Images.Media.ORIENTATION};
+        Cursor cursor = null;
+        try {
+            cursor = context.getContentResolver().query(imageUri, columns, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int orientationColumnIndex = cursor.getColumnIndex(columns[0]);
+                result = cursor.getInt(orientationColumnIndex);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+    /*private int getRotationFromCamera(Uri imageFile) {
         int orientation = 0;
         try {
             Cursor cursor = context.getContentResolver().query(imageFile,
@@ -344,7 +440,26 @@ public class PerfilActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return orientation;
-    }
+    }*/
 
+
+    @Override
+    public void atualizar(RetornoDTO retornoDTO) {
+        if(retornoDTO.getListEstado() != null &&
+                !retornoDTO.getListEstado().isEmpty()){
+
+            final ArrayAdapter<String> municipios = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
+            municipios.add("Cidade");
+
+            for (EstadoDTO estadoDTO:retornoDTO.getListEstado()) {
+                municipios.add(estadoDTO.getMunicipio());
+            }
+            municipios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            cidade.setAdapter(municipios);
+            municipios.notifyDataSetChanged();
+            cidade.setSelection(0);
+
+        }
+    }
 
 }
